@@ -75,6 +75,27 @@ def get_youtube_instance():
         api_service_name, api_version, developerKey=api_key
     )
 
+def save_data(all_videos_data):
+    save_format_txt(all_videos_data)
+    save_format_json(all_videos_data)
+
+def save_format_txt(all_videos_data):
+     output_file = "videos_data_formatted.txt"
+     with open(output_file, "w", encoding="utf-8") as f:
+        for video in all_videos_data:
+            f.write("="*60 + "\n")
+            f.write(f"VÍDEO {video['video_number']}\n")
+            f.write("="*60 + "\n\n")
+            formatted_lines = format_dict_to_lines(video)
+            f.write("\n".join(formatted_lines))
+            f.write("\n\n")
+     print(f"\n✓ Dados salvos em '{output_file}'")
+
+def save_format_json(all_videos_data):
+     with open("videos_data.json", "w", encoding="utf-8") as f:
+          json.dump(all_videos_data, f, indent=2, ensure_ascii=False)
+     print("✓ Dados salvos em 'videos_data.json'")
+
 def main():
     youtube = get_youtube_instance()
 
@@ -126,22 +147,7 @@ def main():
 
     driver.quit()
 
-    output_file = "videos_data_formatted.txt"
-    with open(output_file, "w", encoding="utf-8") as f:
-        for video in all_videos_data:
-            f.write("="*60 + "\n")
-            f.write(f"VÍDEO {video['video_number']}\n")
-            f.write("="*60 + "\n\n")
-            formatted_lines = format_dict_to_lines(video)
-            f.write("\n".join(formatted_lines))
-            f.write("\n\n")
-    
-    print(f"\n✓ Dados salvos em '{output_file}'")
-
-    with open("videos_data.json", "w", encoding="utf-8") as f:
-        json.dump(all_videos_data, f, indent=2, ensure_ascii=False)
-    
-    print("✓ Dados salvos em 'videos_data.json'")
+    save_data(all_videos_data) 
 
 if __name__ == "__main__":
     main()
