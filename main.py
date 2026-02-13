@@ -1,153 +1,113 @@
-import googleapiclient.discovery
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from youtube_transcript_api import YouTubeTranscriptApi
-from pytubefix import YouTube
-from pytubefix.cli import on_progress
+from selenium.common.exceptions import TimeoutException, WebDriverException, NoSuchElementException
 import time
 import os
 from dotenv import load_dotenv
-import json
+from datetime import datetime
 
+from utils import (
+    get_data_videos,
+    get_data_comments,
+    get_transcription,
+    save_video_data,
+    download_video
+)
 
 load_dotenv()
 
-def format_dict_to_lines(data, indent=0):
-    lines = []
-    prefix = "  " * indent
-    
-    if isinstance(data, dict):
-        for key, value in data.items():
-            if isinstance(value, (dict, list)):
-                lines.append(f"{prefix}{key}:")
-                lines.extend(format_dict_to_lines(value, indent + 1))
-            else:
-                lines.append(f"{prefix}{key}: {value}")
-    elif isinstance(data, list):
-        for i, item in enumerate(data):
-            if isinstance(item, (dict, list)):
-                lines.append(f"{prefix}[{i}]:")
-                lines.extend(format_dict_to_lines(item, indent + 1))
-            else:
-                lines.append(f"{prefix}[{i}]: {item}")
-    else:
-        lines.append(f"{prefix}{data}")
-    
-    return lines
-
-def download_video(url):
-     yt = YouTube(url, on_progress_callback = on_progress)
-     print(yt.title)
-     ys = yt.streams.get_highest_resolution()
-     ys.download(output_path=os.getenv("DOWNLOAD_OUTPUT"))
-     
-def get_data_videos(video_id, youtube):
-    request = youtube.videos().list(
-        part="contentDetails,id,liveStreamingDetails,localizations,"
-             "player,recordingDetails,snippet,statistics,status,topicDetails",
-        id=video_id
-        )
-    
-    return request.execute()
-
-def get_data_comments(video_id, youtube):
-    request = youtube.commentThreads().list(
-        part="snippet",
-        videoId=video_id,
-        maxResults=1
-        )
-    
-    return request.execute()
-
-def get_transcription(video_id):
-    ytt_api = YouTubeTranscriptApi().fetch(video_id, languages=['pt', 'en'])
-    
-    return " ".join([snippet.text for snippet in ytt_api.snippets])
-
-def get_youtube_instance():
-    api_service_name = os.getenv("API_SERVICE_NAME")
-    api_version = os.getenv("API_VERSION")
-    api_key = os.getenv("API_KEY")
-
-    return googleapiclient.discovery.build(
-        api_service_name, api_version, developerKey=api_key
-    )
-
-def save_data(all_videos_data):
-    save_format_txt(all_videos_data)
-    save_format_json(all_videos_data)
-
-def save_format_txt(all_videos_data):
-     output_file = "videos_data_formatted.txt"
-     with open(output_file, "w", encoding="utf-8") as f:
-        for video in all_videos_data:
-            f.write("="*60 + "\n")
-            f.write(f"VÍDEO {video['video_number']}\n")
-            f.write("="*60 + "\n\n")
-            formatted_lines = format_dict_to_lines(video)
-            f.write("\n".join(formatted_lines))
-            f.write("\n\n")
-     print(f"\n✓ Dados salvos em '{output_file}'")
-
-def save_format_json(all_videos_data):
-     with open("videos_data.json", "w", encoding="utf-8") as f:
-          json.dump(all_videos_data, f, indent=2, ensure_ascii=False)
-     print("✓ Dados salvos em 'videos_data.json'")
 
 def main():
-    youtube = get_youtube_instance()
-
-    driver = webdriver.Chrome()
-    driver.get(os.getenv("BASE_ROUTE"))
-
-    wait = WebDriverWait(driver, 10)
-    time.sleep(3) 
-
-    all_videos_data = []
-
-    for i in range(2):
-        print(f"\n{'='*60}")
-        print(f"VÍDEO {i+1}")
-        print('='*60)
-
-        url_atual = driver.current_url
-
-        video_id = url_atual.split("/shorts/")[-1].split("?")[0]
+    driver = None
+    
+    try:
+        driver = webdriver.Chrome()
         
-        video_data = {
-            "video_number": i + 1,
-            "video_id": video_id,
-            "url": url_atual
-        }
-
-        data_video = get_data_videos(video_id, youtube)
-        video_data["video_details"] = data_video
-
-        data_comments = get_data_comments(video_id, youtube)
-        video_data["comments_data"] = data_comments
-
-        transcription = get_transcription(video_id)
-        video_data["transcription"] = transcription
-
-        all_videos_data.append(video_data)
-
-        print("\n--- DADOS FORMATADOS ---\n")
-        formatted_lines = format_dict_to_lines(video_data)
-        formatted_text = "\n".join(formatted_lines)
-        print(formatted_text)
+        base_route = os.getenv("BASE_ROUTE")
+        if not base_route:
+            print("BASE_ROUTE não configurado")
+            return
         
-        print("\n--- DOWNLOAD ---")
-        download_video(url_atual)
+        driver.get(base_route)
+        wait = WebDriverWait(driver, 10)
+        time.sleep(3)
+        
+        # Criar estrutura de pastas
+        base_dir = "dados"
+        os.makedirs(base_dir, exist_ok=True)
+        
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        collection_folder = os.path.join(base_dir, f"coleta_{timestamp}")
+        os.makedirs(collection_folder, exist_ok=True)
+        print(f"Pasta da coleta criada: {collection_folder}")
+        
+        num_videos = 2
+        
+        for i in range(num_videos):
+            try:
+                print(f"\n{'='*60}")
+                print(f"VÍDEO {i+1}/{num_videos}")
+                print('='*60)
+                
+                url_atual = driver.current_url
+                video_id = url_atual.split("/shorts/")[-1].split("?")[0]
+                
+                # Criar pasta do vídeo
+                video_folder = os.path.join(collection_folder, f"video_{i+1}_{video_id}")
+                os.makedirs(video_folder, exist_ok=True)
+                
+                video_data = {
+                    "video_id": video_id,
+                    "url": url_atual
+                }
+                
+                # Buscar dados do vídeo
+                data_video = get_data_videos(video_id)
+                if "error" in data_video:
+                    print("Erro ao buscar vídeo, pulando...")
+                    continue
+                video_data["video_details"] = data_video
+                
+                # Buscar comentários
+                data_comments = get_data_comments(video_id)
+                video_data["comments_data"] = data_comments
+                
+                # Buscar transcrição
+                transcription = get_transcription(video_id)
+                video_data["transcription"] = transcription
+                
+                # Salvar todos os dados
+                save_video_data(video_data, video_folder)
+                
+                print("Dados coletados")
+                
+                # Download do vídeo
+                download_video(url_atual, video_folder)
+                
+                # Navegar para próximo vídeo
+                driver.find_element(By.TAG_NAME, "body").send_keys(Keys.ARROW_DOWN)
+                wait.until(lambda d: d.current_url != url_atual)
+                time.sleep(2)
+                
+            except (TimeoutException, NoSuchElementException):
+                print("Não foi possível navegar para próximo vídeo")
+                break
+            except Exception as e:
+                print(f"Erro: {e}")
+                continue
+        
+        print("\nFinalizado")
+            
+    except WebDriverException as e:
+        print(f"Erro no WebDriver: {e}")
+    except Exception as e:
+        print(f"Erro fatal: {e}")
+    finally:
+        if driver:
+            driver.quit()
 
-        driver.find_element(By.TAG_NAME, "body").send_keys(Keys.ARROW_DOWN)
-        wait.until(lambda d: d.current_url != url_atual)
-        time.sleep(2) 
-
-    driver.quit()
-
-    save_data(all_videos_data) 
 
 if __name__ == "__main__":
     main()
