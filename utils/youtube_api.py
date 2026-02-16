@@ -8,7 +8,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
 class YoutubeApi:
     YOUTUBE_API_SERVICE_NAME = os.getenv("API_SERVICE_NAME")
     YOUTUBE_API_VERSION = os.getenv("API_VERSION")
