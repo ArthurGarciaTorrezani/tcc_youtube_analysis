@@ -34,7 +34,6 @@ def main():
         wait = WebDriverWait(driver, 10)
         time.sleep(3)
         
-        # Criar estrutura de pastas
         base_dir = "dados"
         os.makedirs(base_dir, exist_ok=True)
         

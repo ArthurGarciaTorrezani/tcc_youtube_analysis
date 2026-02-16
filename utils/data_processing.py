@@ -18,7 +18,6 @@ def save_video_data(video_data, video_folder):
         
         video_info = {}
         
-        # Extrair informações do vídeo
         if 'items' in video_details and len(video_details['items']) > 0:
             item = video_details['items'][0]
             snippet = item.get('snippet', {})
@@ -39,7 +38,6 @@ def save_video_data(video_data, video_folder):
                 'duration': content_details.get('duration', ''),
             }
         
-        # Processar comentários com respostas
         comments_estruturados = []
         if isinstance(comments_data, list):
             for thread in comments_data:
@@ -56,7 +54,6 @@ def save_video_data(video_data, video_folder):
                     'replies': []
                 }
                 
-                # Adicionar respostas
                 for reply in replies:
                     reply_snippet = reply.get('snippet', {})
                     item_data['replies'].append({
@@ -69,7 +66,6 @@ def save_video_data(video_data, video_folder):
                 
                 comments_estruturados.append(item_data)
         
-        # 1. JSON completo com TUDO
         json_data = {
             'video': video_info,
             'comments': comments_estruturados,
@@ -79,7 +75,6 @@ def save_video_data(video_data, video_folder):
         with open(json_file, "w", encoding="utf-8") as f:
             json.dump(json_data, f, indent=2, ensure_ascii=False)
         
-        # 2. TXT com informações formatadas e completas
         txt_file = os.path.join(video_folder, "dados.txt")
         with open(txt_file, "w", encoding="utf-8") as f:
             f.write("="*60 + "\n")
@@ -107,12 +102,10 @@ def save_video_data(video_data, video_folder):
                 
                 f.write("-"*60 + "\n")
         
-        # 3. CSV do vídeo
         df_video = pd.DataFrame([video_info])
         csv_video_file = os.path.join(video_folder, "video.csv")
         df_video.to_csv(csv_video_file, index=False, encoding='utf-8-sig')
         
-        # 4. CSV de comentários (sem respostas para manter formato tabular)
         if comments_estruturados:
             comments_csv = []
             for comment in comments_estruturados:
@@ -128,7 +121,6 @@ def save_video_data(video_data, video_folder):
             csv_comments_file = os.path.join(video_folder, "comentarios.csv")
             df_comments.to_csv(csv_comments_file, index=False, encoding='utf-8-sig')
         
-        # 5. CSV de respostas (todas as respostas em um arquivo)
         if comments_estruturados:
             all_replies = []
             for comment in comments_estruturados:
@@ -148,7 +140,6 @@ def save_video_data(video_data, video_folder):
                 csv_replies_file = os.path.join(video_folder, "respostas.csv")
                 df_replies.to_csv(csv_replies_file, index=False, encoding='utf-8-sig')
         
-        # 6. Transcrição separada
         if transcription:
             trans_file = os.path.join(video_folder, "transcricao.txt")
             with open(trans_file, "w", encoding="utf-8") as f:
