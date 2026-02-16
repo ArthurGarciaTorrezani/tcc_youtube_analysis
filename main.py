@@ -54,7 +54,6 @@ def main():
                 url_atual = driver.current_url
                 video_id = url_atual.split("/shorts/")[-1].split("?")[0]
                 
-                # Criar pasta do vídeo
                 video_folder = os.path.join(collection_folder, f"video_{i+1}_{video_id}")
                 os.makedirs(video_folder, exist_ok=True)
                 
@@ -63,18 +62,15 @@ def main():
                     "url": url_atual
                 }
                 
-                # Buscar dados do vídeo
                 data_video = get_data_videos(video_id)
                 if "error" in data_video:
                     print("Erro ao buscar vídeo, pulando...")
                     continue
                 video_data["video_details"] = data_video
                 
-                # Buscar comentários
                 data_comments = get_data_comments(video_id)
                 video_data["comments_data"] = data_comments
                 
-                # Buscar transcrição
                 transcription = get_transcription(video_id)
                 video_data["transcription"] = transcription
                 
@@ -86,7 +82,6 @@ def main():
                 # Download do vídeo
                 download_video(url_atual, video_folder)
                 
-                # Navegar para próximo vídeo
                 driver.find_element(By.TAG_NAME, "body").send_keys(Keys.ARROW_DOWN)
                 wait.until(lambda d: d.current_url != url_atual)
                 time.sleep(2)

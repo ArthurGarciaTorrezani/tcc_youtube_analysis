@@ -73,13 +73,12 @@ def get_data_comments(video_id):
         method_func = lambda client, **kwargs: client.commentThreads().list(**kwargs)
         part = "snippet,replies"
         
-        comment_response = api_youtube.make_api_request(
+        comments_response = api_youtube.make_api_request(
             method_func, 
             videoId=video_id, 
             part=part, 
             maxResults=100
         )
-        return comment_response
         
     except HttpError as error:
         try:
@@ -93,7 +92,39 @@ def get_data_comments(video_id):
     except Exception as e:
         print(f"Erro ao buscar comentários: {e}")
         return {"error": str(e)}
+    
+    
 
+def get_data_replies(video_id, comment_id):
+    api_youtube = YoutubeApi.get_instance()
+    next_page_token = None  # Mover para fora do loop
+    all_replies = []  # Para armazenar as respostas
+    
+    while True:
+        method_func = lambda client, **kwargs: client.comments().list(**kwargs)
+        
+        try:
+            comment_response = api_youtube.make_api_request(
+                method_func,
+                part="snippet",
+                parentId=comment_id,
+                pageToken=next_page_token,
+                maxResults=100
+            )
+            
+            # Coletar os comentários desta página
+            if 'items' in comment_response:
+                all_replies.extend(comment_response['items'])
+        
+            next_page_token = comment_response.get('nextPageToken')
+            if not next_page_token:
+                break
+                
+        except Exception as e:
+            print(f"Erro ao buscar respostas: {e}")
+            break
+    
+    return all_replies
 
 def get_transcription(video_id):
     try:

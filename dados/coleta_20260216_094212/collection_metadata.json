@@ -1,0 +1,9 @@
+{
+  "collection_id": "test_collection",
+  "collected_at": "2026-02-16T09:42:12.923853",
+  "total_videos": 5,
+  "videos_collected": 0,
+  "videos_failed": 0,
+  "status": "in_progress",
+  "errors": []
+}

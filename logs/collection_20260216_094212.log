@@ -1,0 +1,4 @@
+{"timestamp": "2026-02-16T09:42:12.953225", "level": "INFO", "message": "Mensagem informativa de teste", "metadata": {}}
+{"timestamp": "2026-02-16T09:42:12.953880", "level": "WARNING", "message": "Mensagem de aviso de teste", "metadata": {}}
+{"timestamp": "2026-02-16T09:42:12.954524", "level": "ERROR", "message": "Mensagem de erro de teste", "metadata": {"code": 500}}
+{"timestamp": "2026-02-16T09:42:12.955560", "level": "DEBUG", "message": "Mensagem de debug de teste", "metadata": {}}
