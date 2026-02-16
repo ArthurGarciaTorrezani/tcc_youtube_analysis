@@ -1,0 +1,50 @@
+2026-02-16 14:00:39 - INFO - Iniciando validação de credenciais...
+2026-02-16 14:00:39 - INFO - ✓ Todas as credenciais validadas
+2026-02-16 14:00:39 - INFO - Iniciando WebDriver Chrome...
+2026-02-16 14:00:49 - INFO - 📁 Pasta da coleta criada: dados\coleta_20260216_140049
+2026-02-16 14:00:49 - INFO - 
+============================================================
+2026-02-16 14:00:49 - INFO - VÍDEO 1/2
+2026-02-16 14:00:49 - INFO - ============================================================
+2026-02-16 14:00:49 - INFO - Video ID: xYhpXhZKZ_k
+2026-02-16 14:00:49 - INFO - Buscando informações do vídeo...
+2026-02-16 14:00:50 - INFO - ✓ Informações do vídeo obtidas
+2026-02-16 14:00:50 - INFO - Buscando comentários e respostas...
+2026-02-16 14:00:50 - INFO - ✓ 3 comentários coletados
+2026-02-16 14:00:50 - INFO - ✓ 0 respostas coletadas
+2026-02-16 14:00:50 - INFO - Buscando transcrição...
+2026-02-16 14:00:51 - INFO - ✓ Transcrição obtida (1401 caracteres)
+2026-02-16 14:00:51 - INFO - Salvando dados coletados...
+2026-02-16 14:00:51 - INFO - ✓ Dados salvos com sucesso
+2026-02-16 14:00:51 - INFO - Iniciando download do vídeo...
+2026-02-16 14:00:52 - INFO - ✓ Download concluído
+2026-02-16 14:00:52 - INFO - Navegando para próximo vídeo...
+2026-02-16 14:00:55 - INFO - 
+============================================================
+2026-02-16 14:00:55 - INFO - VÍDEO 2/2
+2026-02-16 14:00:55 - INFO - ============================================================
+2026-02-16 14:00:55 - INFO - Video ID: T3o9D9ksEDE
+2026-02-16 14:00:55 - INFO - Buscando informações do vídeo...
+2026-02-16 14:00:55 - INFO - ✓ Informações do vídeo obtidas
+2026-02-16 14:00:55 - INFO - Buscando comentários e respostas...
+2026-02-16 14:00:55 - INFO - ✓ 16 comentários coletados
+2026-02-16 14:00:55 - INFO - ✓ 0 respostas coletadas
+2026-02-16 14:00:55 - INFO - Buscando transcrição...
+2026-02-16 14:00:56 - INFO - ✓ Transcrição obtida (2071 caracteres)
+2026-02-16 14:00:56 - INFO - Salvando dados coletados...
+2026-02-16 14:00:56 - INFO - ✓ Dados salvos com sucesso
+2026-02-16 14:00:56 - INFO - Iniciando download do vídeo...
+2026-02-16 14:01:01 - INFO - ✓ Download concluído
+2026-02-16 14:01:01 - INFO - Navegando para próximo vídeo...
+2026-02-16 14:01:03 - INFO - 
+============================================================
+2026-02-16 14:01:03 - INFO - RESUMO DA COLETA
+2026-02-16 14:01:03 - INFO - ============================================================
+2026-02-16 14:01:03 - INFO - ✓ Vídeos coletados com sucesso: 2
+2026-02-16 14:01:03 - INFO - ❌ Vídeos com erro: 0
+2026-02-16 14:01:03 - INFO - 📝 Total de comentários: 19
+2026-02-16 14:01:03 - INFO - 💬 Total de respostas: 0
+2026-02-16 14:01:03 - INFO - ⏱️  Tempo total: 0:00:24.762786
+2026-02-16 14:01:03 - INFO - 📁 Dados salvos em: dados\coleta_20260216_140049
+2026-02-16 14:01:03 - INFO - ✓ Coleta finalizada com sucesso!
+2026-02-16 14:01:03 - INFO - Fechando WebDriver...
