@@ -4,13 +4,7 @@ import os
 
 
 def save_video_data(video_data, video_folder):
-    """
-    Salva TODOS os dados do vídeo em formatos separados:
-    - JSON completo com vídeo, comentários e respostas
-    - TXT formatado
-    - CSVs estruturados
-    - Transcrição
-    """
+
     try:
         video_details = video_data.get('video_details', {})
         comments_data = video_data.get('comments_data', [])
