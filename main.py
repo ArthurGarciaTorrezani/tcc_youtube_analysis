@@ -74,12 +74,10 @@ def main():
                 transcription = get_transcription(video_id)
                 video_data["transcription"] = transcription
                 
-                # Salvar todos os dados
                 save_video_data(video_data, video_folder)
                 
                 print("Dados coletados")
                 
-                # Download do vídeo
                 download_video(url_atual, video_folder)
                 
                 driver.find_element(By.TAG_NAME, "body").send_keys(Keys.ARROW_DOWN)
