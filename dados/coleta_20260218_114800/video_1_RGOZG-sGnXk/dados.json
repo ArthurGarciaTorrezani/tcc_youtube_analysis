@@ -1,0 +1,128 @@
+{
+  "_metadata": {
+    "source": "youtube_data_api_v3",
+    "collected_at": "2026-02-18T14:48:01Z",
+    "schema_version": "2.0"
+  },
+  "video": {
+    "video_id": "RGOZG-sGnXk",
+    "url": "https://www.youtube.com/shorts/RGOZG-sGnXk",
+    "title": "um vídeo SALVOU a vida dele",
+    "description": "",
+    "published_at": "2026-02-15T19:00:33Z",
+    "channel_title": "Liwen123",
+    "channel_id": "UCoFbhVk4EI2udWHF-iCJSBw",
+    "view_count": 197459,
+    "like_count": 2197,
+    "comment_count": 10,
+    "duration_iso": "PT22S",
+    "duration_seconds": 22,
+    "content_type": "short",
+    "language": "pt-PT",
+    "madeForKids": false
+  },
+  "transcription": {
+    "text": "Em 2024, esse cara postou um vídeo sobre uma lâmina que ficou presa no seu aquário. Só que as pessoas perceberam que ele tinha uma mancha branca na unha e mandaram ele ir pro médico urgente, porque isso podia ser câncer de pele. O doido é que ele é um técnico de raio X e esse é exatamente o dedo que ele usa para apertar o botão que libera a radiação. E aí ele foi no médico fazer alguns exames. E quando os exames chegaram, não era",
+    "language": "pt-PT",
+    "source": "auto_generated",
+    "word_count": 87,
+    "has_timestamps": false
+  },
+  "comments": [
+    {
+      "comment_id": "UgwaRrih6KU5VRRL2LR4AaABAg",
+      "author": "@adolphovieirajr1266",
+      "text": "Galera de 2029",
+      "like_count": 0,
+      "published_at": "2026-02-17T22:11:29Z",
+      "flags": [],
+      "replies": []
+    },
+    {
+      "comment_id": "Ugw-MlGYGfaHfu-o_lh4AaABAg",
+      "author": "@eduardafernandes1820",
+      "text": "Créditos:Giulhanamafra",
+      "like_count": 0,
+      "published_at": "2026-02-17T01:17:28Z",
+      "flags": [
+        "low_quality"
+      ],
+      "replies": []
+    },
+    {
+      "comment_id": "UgxqAR0-QS1gj-mErmp4AaABAg",
+      "author": "@LuanaKettelen-qd3qb",
+      "text": "Só isso",
+      "like_count": 0,
+      "published_at": "2026-02-17T00:07:00Z",
+      "flags": [
+        "low_quality"
+      ],
+      "replies": []
+    },
+    {
+      "comment_id": "Ugxku5hKKxTUbmYtpop4AaABAg",
+      "author": "@myssonsilva6589",
+      "text": "😂",
+      "like_count": 0,
+      "published_at": "2026-02-16T23:00:00Z",
+      "flags": [
+        "emoji_only"
+      ],
+      "replies": [
+        {
+          "reply_id": "Ugxku5hKKxTUbmYtpop4AaABAg.ATJ1w9IKzWwATJK8IPV7WN",
+          "author": "@janainamaciel4853",
+          "text": "Emily sousuafã",
+          "like_count": 0,
+          "published_at": "2026-02-17T01:39:05Z"
+        },
+        {
+          "reply_id": "Ugxku5hKKxTUbmYtpop4AaABAg.ATJ1w9IKzWwATJK9AnzG0q",
+          "author": "@janainamaciel4853",
+          "text": "❤❤❤❤❤❤",
+          "like_count": 0,
+          "published_at": "2026-02-17T01:39:12Z"
+        },
+        {
+          "reply_id": "Ugxku5hKKxTUbmYtpop4AaABAg.ATJ1w9IKzWwATJKKrSqU1y",
+          "author": "@janainamaciel4853",
+          "text": "Sou louca por voce",
+          "like_count": 0,
+          "published_at": "2026-02-17T01:40:48Z"
+        },
+        {
+          "reply_id": "Ugxku5hKKxTUbmYtpop4AaABAg.ATJ1w9IKzWwATJKtsLkWC8",
+          "author": "@janainamaciel4853",
+          "text": "Eu moro numa casa 🕐😻😻😘😘😘😍😘🥰😍♥️❣️💔💋🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕",
+          "like_count": 0,
+          "published_at": "2026-02-17T01:45:42Z"
+        },
+        {
+          "reply_id": "Ugxku5hKKxTUbmYtpop4AaABAg.ATJ1w9IKzWwATJPB2WYZGD",
+          "author": "@adrianebunick9234",
+          "text": "​​@janainamaciel4853não e Emily Vick verdade só foto de perfil",
+          "like_count": 0,
+          "published_at": "2026-02-17T02:23:08Z"
+        }
+      ]
+    },
+    {
+      "comment_id": "UgwpzcKw26ghxfHxQxx4AaABAg",
+      "author": "@elenamartinez7178",
+      "text": "Se.  Loco",
+      "like_count": 3,
+      "published_at": "2026-02-15T21:03:15Z",
+      "flags": [
+        "low_quality"
+      ],
+      "replies": []
+    }
+  ],
+  "engagement": {
+    "like_view_ratio": 0.0111,
+    "comment_view_ratio": 5.1e-05,
+    "comments_with_replies": 1,
+    "total_replies": 5
+  }
+}

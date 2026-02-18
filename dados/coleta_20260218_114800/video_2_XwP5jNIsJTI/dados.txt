@@ -1,0 +1,23 @@
+============================================================
+INFORMAÇÕES DO VÍDEO
+============================================================
+video_id: XwP5jNIsJTI
+url: https://www.youtube.com/shorts/XwP5jNIsJTI
+title: quanto tempo você viveria SEM ESSAS COISAS
+description: 
+published_at: 2026-02-17T21:30:12Z
+channel_title: Liwen123
+channel_id: UCoFbhVk4EI2udWHF-iCJSBw
+view_count: 63092
+like_count: 1349
+comment_count: 0
+duration_iso: PT29S
+duration_seconds: 29
+content_type: short
+language: pt-PT
+madeForKids: False
+
+============================================================
+COMENTÁRIOS E RESPOSTAS (0)
+============================================================
+Nenhum comentário encontrado
