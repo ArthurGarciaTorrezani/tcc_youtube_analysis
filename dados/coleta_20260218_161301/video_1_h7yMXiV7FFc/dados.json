@@ -1,0 +1,50 @@
+{
+  "_metadata": {
+    "source": "youtube_data_api_v3",
+    "collected_at": "2026-02-18T19:13:02Z",
+    "schema_version": "2.0"
+  },
+  "video": {
+    "video_id": "h7yMXiV7FFc",
+    "url": "https://www.youtube.com/shorts/h7yMXiV7FFc",
+    "title": "POV avós 👵🏼🤣 como é a sua #humor #amigas #familia",
+    "description": "",
+    "published_at": "2026-02-11T13:04:10Z",
+    "channel_title": "bik",
+    "channel_id": "UCZ0S7k4R5ZQoHfxQySBNWmQ",
+    "view_count": 34288,
+    "like_count": 577,
+    "comment_count": 1,
+    "duration_iso": "PT46S",
+    "duration_seconds": 46,
+    "content_type": "short",
+    "language": "pt-PT",
+    "madeForKids": false
+  },
+  "transcription": {
+    "text": "Cheguei, >> vó. >> Mãe, >> saudade da minha netinha. >> Saudades também, vó. Você nem me avisou que vinha. >> Ué, e eu preciso >> só pra você. >> Que isso, vó? >> Só um trocadinho. >> Obrigada. >> Não conta pra tua mãe. >> Eu vou sair e já volto. >> Leva uma blusa. >> Blusa. Enjoei das minhas, não gosto de nenhuma. Você já tá querendo me estressar. >> Não, >> leva essa, netinha. Acabei de tricotar. O que que é isso aqui? >> Nada, mãe. >> Uma topoware da minha coleção. >> Você nem lembrava mais. Você tá muito >> Eu lembrava sim. Essa é minha preferida. Gente, tu só fica aí deitada? Vó, é que eu tô muito cansada. >> Cansada de quê? Tem que sair um pouco de casa >> pra fazer o quê? >> Ué, aula de hidroginástica. >> Ai, tô com uma dor de cabeça. Vai tomar remédio? >> Não, escuta a sua mãe. >> Tá bom. >> Eu tenho um remedinho natural, vinagre, canela e uma pitadinha de sal. >> Que nojo. Ô vó, >> fala Giovana. Juliana.",
+    "language": "pt-PT",
+    "source": "auto_generated",
+    "word_count": 187,
+    "has_timestamps": false
+  },
+  "comments": [
+    {
+      "comment_id": "UgyFkkFjN81-iWGiAMR4AaABAg",
+      "author": "@tatianegalego7900",
+      "text": "😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂😂",
+      "like_count": 1,
+      "published_at": "2026-02-11T15:36:20Z",
+      "flags": [
+        "emoji_only"
+      ],
+      "replies": []
+    }
+  ],
+  "engagement": {
+    "like_view_ratio": 0.0168,
+    "comment_view_ratio": 2.9e-05,
+    "comments_with_replies": 0,
+    "total_replies": 0
+  }
+}

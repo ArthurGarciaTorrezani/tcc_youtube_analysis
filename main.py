@@ -1,9 +1,4 @@
-"""
-Módulo principal para coleta de dados de vídeos do YouTube.
-
-Coleta informações de vídeos, comentários, transcrições e downloads
-do YouTube usando Selenium.
-"""
+# %%
 from datetime import datetime
 import logging
 import os
