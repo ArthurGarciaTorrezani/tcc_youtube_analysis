@@ -1,0 +1,50 @@
+2026-02-20 18:12:25 - INFO - Iniciando validação de credenciais...
+2026-02-20 18:12:25 - ERROR - Variáveis de ambiente faltando:
+2026-02-20 18:12:25 - ERROR -   - API_KEY (Chave de API do YouTube)
+2026-02-20 18:12:25 - ERROR - ❌ Falha na validação de credenciais
+2026-02-20 18:12:58 - INFO - Iniciando validação de credenciais...
+2026-02-20 18:12:58 - INFO - ✓ Todas as credenciais validadas
+2026-02-20 18:12:58 - INFO - Iniciando WebDriver Chrome...
+2026-02-20 18:13:09 - INFO - 📁 Pasta da coleta criada: dados\coleta_20260220_181309
+2026-02-20 18:13:09 - INFO - 
+============================================================
+2026-02-20 18:13:09 - INFO - VÍDEO 1/2
+2026-02-20 18:13:09 - INFO - ============================================================
+2026-02-20 18:13:10 - INFO - Video ID: ZwokYZpfPP8
+2026-02-20 18:13:10 - INFO - Buscando informações do vídeo...
+2026-02-20 18:13:10 - INFO - ✓ Informações do vídeo obtidas
+2026-02-20 18:13:10 - INFO - Buscando comentários e respostas...
+2026-02-20 18:13:10 - INFO - ✓ 1 comentários coletados
+2026-02-20 18:13:10 - INFO - ✓ 1 respostas coletadas
+2026-02-20 18:13:10 - INFO - Buscando transcrição...
+2026-02-20 18:13:11 - INFO - ✓ Transcrição obtida (587 caracteres)
+2026-02-20 18:13:11 - INFO - Salvando dados coletados...
+2026-02-20 18:13:11 - INFO - ✓ Dados salvos com sucesso
+2026-02-20 18:13:11 - INFO - Navegando para próximo vídeo...
+2026-02-20 18:13:14 - INFO - 
+============================================================
+2026-02-20 18:13:14 - INFO - VÍDEO 2/2
+2026-02-20 18:13:14 - INFO - ============================================================
+2026-02-20 18:13:14 - INFO - Video ID: mog44jOlQX0
+2026-02-20 18:13:14 - INFO - Buscando informações do vídeo...
+2026-02-20 18:13:14 - INFO - ✓ Informações do vídeo obtidas
+2026-02-20 18:13:14 - INFO - Buscando comentários e respostas...
+2026-02-20 18:13:14 - INFO - ✓ 3 comentários coletados
+2026-02-20 18:13:14 - INFO - ✓ 1 respostas coletadas
+2026-02-20 18:13:14 - INFO - Buscando transcrição...
+2026-02-20 18:13:15 - INFO - ✓ Transcrição obtida (746 caracteres)
+2026-02-20 18:13:15 - INFO - Salvando dados coletados...
+2026-02-20 18:13:15 - INFO - ✓ Dados salvos com sucesso
+2026-02-20 18:13:15 - INFO - Navegando para próximo vídeo...
+2026-02-20 18:13:17 - INFO - 
+============================================================
+2026-02-20 18:13:17 - INFO - RESUMO DA COLETA
+2026-02-20 18:13:17 - INFO - ============================================================
+2026-02-20 18:13:17 - INFO - ✓ Vídeos coletados com sucesso: 2
+2026-02-20 18:13:17 - INFO - ❌ Vídeos com erro: 0
+2026-02-20 18:13:17 - INFO - 📝 Total de comentários: 4
+2026-02-20 18:13:17 - INFO - 💬 Total de respostas: 2
+2026-02-20 18:13:17 - INFO - ⏱️  Tempo total: 0:00:19.027838
+2026-02-20 18:13:17 - INFO - 📁 Dados salvos em: dados\coleta_20260220_181309
+2026-02-20 18:13:17 - INFO - ✓ Coleta finalizada com sucesso!
+2026-02-20 18:13:17 - INFO - Fechando WebDriver...

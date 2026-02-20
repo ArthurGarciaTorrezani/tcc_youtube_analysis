@@ -4,6 +4,7 @@ import logging
 import os
 import time
 
+
 from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.common.exceptions import (
@@ -59,7 +60,7 @@ def validate_credentials():
     required_vars = {
         "API_SERVICE_NAME": "Nome do serviço YouTube",
         "API_VERSION": "Versão da API",
-        "API_KEY": "Chave de API do YouTube",
+        "API_KEY_YOUTUBE": "Chave de API do YouTube",
         "BASE_ROUTE": "URL base do YouTube",
     }
 

@@ -14,7 +14,7 @@ class YoutubeApi:
 
     YOUTUBE_API_SERVICE_NAME = os.getenv("API_SERVICE_NAME")
     YOUTUBE_API_VERSION = os.getenv("API_VERSION")
-    DEVELOPER_KEY = os.getenv("API_KEY")
+    DEVELOPER_KEY = os.getenv("API_KEY_YOUTUBE")
     static_YoutubeApi = None
 
     def __init__(self):
