@@ -1,5 +1,5 @@
 google-api-python-client==2.190.0
-selenium==4.41.0
-youtube-transcript-api==1.2.4
+google-genai==1.64.0
 pandas==3.0.1
 python-dotenv==1.2.1
+selenium==4.41.0

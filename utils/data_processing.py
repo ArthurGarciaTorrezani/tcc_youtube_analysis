@@ -1,10 +1,13 @@
 import json
+import logging
 import os
 import re
 from datetime import datetime, timezone
 from typing import Dict, List, Optional
 
 import pandas as pd
+
+logger = logging.getLogger("YoutubeCollector")
 
 
 def iso_duration_to_seconds(duration_iso: str) -> Optional[int]:
@@ -115,12 +118,12 @@ def extract_comment_data(comment_obj: Dict, replies: List[Dict]) -> Optional[Dic
                     }
                 )
             except Exception as exc:
-                print(f"Erro ao processar resposta: {exc}")
+                logger.error(f"Erro ao processar resposta: {exc}")
                 continue
 
         return item_data
     except Exception as exc:
-        print(f"Erro ao extrair dados do comentário: {exc}")
+        logger.error(f"Erro ao extrair dados do comentário: {exc}")
         return None
 
 
@@ -161,7 +164,7 @@ def extract_video_info(video_data: Dict, video_details: Dict) -> Dict:
             'madeForKids': status.get('madeForKids')
         }
     except Exception as e:
-        print(f"Erro ao extrair dados do vídeo: {e}")
+        logger.error(f"Erro ao extrair dados do vídeo: {e}")
 
     return video_info
 
@@ -217,7 +220,7 @@ def save_json(video_info: Dict, comments: List[Dict], transcription: str, video_
             json.dump(json_raw, f, indent=2, ensure_ascii=False)
 
     except Exception as e:
-        print(f"Erro ao salvar JSON: {e}")
+        logger.error(f"Erro ao salvar JSON: {e}")
 
 
 def save_txt(video_info: Dict, comments: List[Dict], video_folder: str) -> None:
@@ -253,7 +256,7 @@ def save_txt(video_info: Dict, comments: List[Dict], video_folder: str) -> None:
             else:
                 f.write("Nenhum comentário encontrado\n")
     except Exception as e:
-        print(f"Erro ao salvar TXT: {e}")
+        logger.error(f"Erro ao salvar TXT: {e}")
 
 
 def save_video_csv(video_info: Dict, video_folder: str) -> None:
@@ -265,7 +268,7 @@ def save_video_csv(video_info: Dict, video_folder: str) -> None:
         csv_video_file = os.path.join(video_folder, "video.csv")
         df_video.to_csv(csv_video_file, index=False, encoding='utf-8-sig')
     except Exception as e:
-        print(f"Erro ao salvar CSV de vídeo: {e}")
+        logger.error(f"Erro ao salvar CSV de vídeo: {e}")
 
 
 def save_comments_csv(comments: List[Dict], video_folder: str) -> None:
@@ -289,7 +292,7 @@ def save_comments_csv(comments: List[Dict], video_folder: str) -> None:
             csv_comments_file = os.path.join(video_folder, "comentarios.csv")
             df_comments.to_csv(csv_comments_file, index=False, encoding='utf-8-sig')
     except Exception as e:
-        print(f"Erro ao salvar CSV de comentários: {e}")
+        logger.error(f"Erro ao salvar CSV de comentários: {e}")
 
 
 def save_replies_csv(comments: List[Dict], video_folder: str) -> None:
@@ -314,7 +317,7 @@ def save_replies_csv(comments: List[Dict], video_folder: str) -> None:
         csv_replies_file = os.path.join(video_folder, "respostas.csv")
         df_replies.to_csv(csv_replies_file, index=False, encoding='utf-8-sig')
     except Exception as e:
-        print(f"Erro ao salvar CSV de respostas: {e}")
+        logger.error(f"Erro ao salvar CSV de respostas: {e}")
 
 
 def save_transcription(transcription: str, video_folder: str) -> None:
@@ -326,11 +329,11 @@ def save_transcription(transcription: str, video_folder: str) -> None:
         with open(trans_file, "w", encoding="utf-8") as f:
             f.write(transcription)
     except Exception as e:
-        print(f"Erro ao salvar transcrição: {e}")
+        logger.error(f"Erro ao salvar transcrição: {e}")
 
 
 def print_summary(video_info: Dict, comments: List[Dict], transcription: str, video_folder: str) -> None:
-    print(f"✓ Dados salvos em: {video_folder}")
+    logger.info(f"✓ Dados salvos em: {video_folder}")
     saved_files = ["dados.json", "dados_raw.json", "dados.txt"]
 
     if video_info:
@@ -347,7 +350,7 @@ def print_summary(video_info: Dict, comments: List[Dict], transcription: str, vi
         saved_files.append("transcricao.txt")
 
     for file in saved_files:
-        print(f"  - {file}")
+        logger.info(f"  - {file}")
 
 
 def save_video_data(video_data: Dict, video_folder: str) -> None:
@@ -360,7 +363,7 @@ def save_video_data(video_data: Dict, video_folder: str) -> None:
         comments = structure_comments(comments_data)
 
         if not video_info and not comments and not transcription:
-            print(f"⚠ Nenhum dado coletado para {video_folder}")
+            logger.warning(f"⚠ Nenhum dado coletado para {video_folder}")
 
         save_json(video_info, comments, transcription, video_folder)
         save_txt(video_info, comments, video_folder)
@@ -372,6 +375,6 @@ def save_video_data(video_data: Dict, video_folder: str) -> None:
         print_summary(video_info, comments, transcription, video_folder)
 
     except json.JSONDecodeError as e:
-        print(f"Erro ao processar JSON dos dados: {e}")
+        logger.error(f"Erro ao processar JSON dos dados: {e}")
     except Exception as e:
-        print(f"Erro ao salvar dados do vídeo: {e}")
+        logger.error(f"Erro ao salvar dados do vídeo: {e}")
