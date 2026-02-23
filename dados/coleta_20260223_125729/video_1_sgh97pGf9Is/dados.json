@@ -1,0 +1,67 @@
+{
+  "_metadata": {
+    "source": "youtube_data_api_v3",
+    "collected_at": "2026-02-23T15:57:32Z",
+    "schema_version": "2.0"
+  },
+  "video": {
+    "video_id": "sgh97pGf9Is",
+    "url": "https://www.youtube.com/shorts/sgh97pGf9Is",
+    "title": "If you did, don't forget to like, commented and subscribe to my channel.#shorts#youtube",
+    "description": "",
+    "published_at": "2026-02-21T04:11:25Z",
+    "channel_title": "Ground Bauguess",
+    "channel_id": "UCT597QKV35jYXA0hd7_rU2w",
+    "view_count": 230231,
+    "like_count": 4101,
+    "comment_count": 3,
+    "duration_iso": "PT37S",
+    "duration_seconds": 37,
+    "content_type": "short",
+    "language": "pt-PT",
+    "madeForKids": false
+  },
+  "transcription": {
+    "text": "",
+    "language": "pt-PT",
+    "source": "auto_generated",
+    "word_count": 0,
+    "has_timestamps": false
+  },
+  "comments": [
+    {
+      "comment_id": "UgyELPFSsV2qe0ggUql4AaABAg",
+      "author": "@MariaVitóriaAlvesCanutoJatobá",
+      "text": "Qual o nome do canal?",
+      "like_count": 0,
+      "published_at": "2026-02-23T15:45:32Z",
+      "flags": [],
+      "replies": []
+    },
+    {
+      "comment_id": "Ugy4BJwJswRihphZoyt4AaABAg",
+      "author": "@Cinthya-e8h7i",
+      "text": "🙄🙄🙄🙄🙄",
+      "like_count": 3,
+      "published_at": "2026-02-21T23:20:35Z",
+      "flags": [
+        "emoji_only"
+      ],
+      "replies": [
+        {
+          "reply_id": "Ugy4BJwJswRihphZoyt4AaABAg.ATVxGIEGIDOATXXfI7dh0D",
+          "author": "@AldenirAlmeida-f8d9i",
+          "text": "🎉😂❤kAELT 40💓🟤🥳🤩🥰😍",
+          "like_count": 1,
+          "published_at": "2026-02-22T14:06:41Z"
+        }
+      ]
+    }
+  ],
+  "engagement": {
+    "like_view_ratio": 0.0178,
+    "comment_view_ratio": 1.3e-05,
+    "comments_with_replies": 1,
+    "total_replies": 1
+  }
+}

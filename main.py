@@ -54,31 +54,6 @@ def setup_logging(log_dir="logs"):
     return logger
 
 
-def validate_credentials():
-    logger = logging.getLogger("YoutubeCollector")
-
-    required_vars = {
-        "API_SERVICE_NAME": "Nome do serviço YouTube",
-        "API_VERSION": "Versão da API",
-        "API_KEY_YOUTUBE": "Chave de API do YouTube",
-        "BASE_ROUTE": "URL base do YouTube",
-    }
-
-    missing_vars = []
-    for var, description in required_vars.items():
-        if not os.getenv(var):
-            missing_vars.append(f"{var} ({description})")
-
-    if missing_vars:
-        logger.error("Variáveis de ambiente faltando:")
-        for var in missing_vars:
-            logger.error(f"  - {var}")
-        return False
-
-    logger.info("✓ Todas as credenciais validadas")
-    return True
-
-
 def collect_video_data(driver, wait, video_index, num_videos,
                        collection_folder, stats):
     logger = logging.getLogger("YoutubeCollector")
@@ -163,7 +138,7 @@ def process_videos(driver, wait, num_videos, collection_folder, stats):
         success = collect_video_data(driver, wait, i, num_videos, collection_folder, stats)
         if not success:
             logger.warning(f"Interrompendo coleta após erro no vídeo {i + 1}")
-            break
+            continue
 
 
 def main():
@@ -179,10 +154,6 @@ def main():
     }
 
     try:
-        logger.info("Iniciando validação de credenciais...")
-        if not validate_credentials():
-            logger.error("❌ Falha na validação de credenciais")
-            return
 
         logger.info("Iniciando WebDriver Chrome...")
         driver = webdriver.Chrome()
