@@ -1,0 +1,76 @@
+2026-02-24 18:21:03 - INFO - Iniciando WebDriver Chrome...
+2026-02-24 18:21:17 - INFO - 📁 Pasta da coleta criada: dados\coleta_20260224_182115
+2026-02-24 18:21:17 - INFO - 
+============================================================
+2026-02-24 18:21:17 - INFO - VÍDEO 1/2
+2026-02-24 18:21:17 - INFO - ============================================================
+2026-02-24 18:21:17 - INFO - Video ID: 06mmnGKFOmo
+2026-02-24 18:21:17 - INFO - Buscando informações do vídeo...
+2026-02-24 18:21:17 - INFO - ✓ Informações do vídeo obtidas
+2026-02-24 18:21:17 - INFO - Buscando comentários e respostas...
+2026-02-24 18:21:18 - INFO - Buscando comentários - página 1...
+2026-02-24 18:21:18 - INFO - Total de comentários coletados: 9
+2026-02-24 18:21:18 - INFO - ✓ 9 comentários coletados
+2026-02-24 18:21:18 - INFO - ✓ 0 respostas coletadas
+2026-02-24 18:21:18 - INFO - Salvando dados coletados (sem transcrição)...
+2026-02-24 18:21:21 - INFO - ✓ Dados salvos em: dados\coleta_20260224_182115\video_1_06mmnGKFOmo
+2026-02-24 18:21:21 - INFO -   - dados.json
+2026-02-24 18:21:21 - INFO -   - dados_raw.json
+2026-02-24 18:21:21 - INFO -   - dados.txt
+2026-02-24 18:21:21 - INFO -   - video.csv
+2026-02-24 18:21:21 - INFO -   - comentarios.csv (9 comentários)
+2026-02-24 18:21:21 - INFO - ✓ Dados salvos com sucesso
+2026-02-24 18:21:21 - INFO - Navegando para próximo vídeo...
+2026-02-24 18:21:23 - INFO - 
+============================================================
+2026-02-24 18:21:23 - INFO - VÍDEO 2/2
+2026-02-24 18:21:23 - INFO - ============================================================
+2026-02-24 18:21:23 - INFO - Video ID: GeIieiPo2Fw
+2026-02-24 18:21:25 - INFO - Buscando informações do vídeo...
+2026-02-24 18:21:25 - INFO - ✓ Informações do vídeo obtidas
+2026-02-24 18:21:25 - INFO - Buscando comentários e respostas...
+2026-02-24 18:21:25 - INFO - Buscando comentários - página 1...
+2026-02-24 18:21:25 - INFO - Total de comentários coletados: 4
+2026-02-24 18:21:25 - INFO - ✓ 4 comentários coletados
+2026-02-24 18:21:25 - INFO - ✓ 2 respostas coletadas
+2026-02-24 18:21:25 - INFO - Salvando dados coletados (sem transcrição)...
+2026-02-24 18:21:29 - INFO - ✓ Dados salvos em: dados\coleta_20260224_182115\video_2_GeIieiPo2Fw
+2026-02-24 18:21:29 - INFO -   - dados.json
+2026-02-24 18:21:29 - INFO -   - dados_raw.json
+2026-02-24 18:21:29 - INFO -   - dados.txt
+2026-02-24 18:21:29 - INFO -   - video.csv
+2026-02-24 18:21:29 - INFO -   - comentarios.csv (4 comentários)
+2026-02-24 18:21:29 - INFO -   - respostas.csv (2 respostas)
+2026-02-24 18:21:29 - INFO - ✓ Dados salvos com sucesso
+2026-02-24 18:21:29 - INFO - Navegando para próximo vídeo...
+2026-02-24 18:21:31 - INFO - Fechando WebDriver...
+2026-02-24 18:21:54 - INFO - 
+============================================================
+2026-02-24 18:21:54 - INFO - FASE 2 — DOWNLOAD + TRANSCRIÇÕES (GEMINI + WHISPER)
+2026-02-24 18:21:54 - INFO - ============================================================
+2026-02-24 18:21:54 - INFO - 
+--- Processando: 06mmnGKFOmo (video_1_06mmnGKFOmo) ---
+2026-02-24 18:21:54 - INFO - Baixando vídeo via yt-dlp: 06mmnGKFOmo
+2026-02-24 18:21:54 - INFO - Iniciando download do vídeo: 06mmnGKFOmo
+2026-02-24 18:21:55 - INFO - ✓ Vídeo baixado: dados\coleta_20260224_182115\video_1_06mmnGKFOmo\06mmnGKFOmo.m4a
+2026-02-24 18:21:56 - INFO - Solicitando transcrição Gemini para: 06mmnGKFOmo
+2026-02-24 18:21:56 - INFO - Solicitando transcrição ao Gemini para: https://www.youtube.com/shorts/06mmnGKFOmo
+2026-02-24 18:22:34 - INFO - Transcrição obtida via Gemini: 9444 caracteres
+2026-02-24 18:22:34 - INFO - ✓ Transcrição Gemini salva (9444 caracteres) em video_1_06mmnGKFOmo
+2026-02-24 18:22:34 - INFO - Solicitando transcrição Whisper para: 06mmnGKFOmo
+2026-02-24 18:22:34 - INFO - Transcrevendo via Whisper: 06mmnGKFOmo.m4a (0.6 MB)
+2026-02-24 18:22:34 - INFO - Carregando modelo faster-whisper (base, CUDA)...
+2026-02-24 18:22:35 - INFO - ✓ Modelo faster-whisper carregado com sucesso
+2026-02-24 18:22:36 - ERROR - Erro ao obter transcrição via Whisper: Library cublas64_12.dll is not found or cannot be loaded
+2026-02-24 18:22:36 - WARNING - ⚠️  Transcrição Whisper não disponível para 06mmnGKFOmo
+2026-02-24 18:22:36 - INFO - 
+--- Processando: GeIieiPo2Fw (video_2_GeIieiPo2Fw) ---
+2026-02-24 18:22:36 - INFO - Baixando vídeo via yt-dlp: GeIieiPo2Fw
+2026-02-24 18:22:36 - INFO - Iniciando download do vídeo: GeIieiPo2Fw
+2026-02-24 18:22:37 - INFO - ✓ Vídeo baixado: dados\coleta_20260224_182115\video_2_GeIieiPo2Fw\GeIieiPo2Fw.m4a
+2026-02-24 18:22:37 - INFO - Solicitando transcrição Gemini para: GeIieiPo2Fw
+2026-02-24 18:22:37 - INFO - Solicitando transcrição ao Gemini para: https://www.youtube.com/shorts/GeIieiPo2Fw
+2026-02-24 18:23:18 - INFO - Transcrição obtida via Gemini: 9586 caracteres
+2026-02-24 18:23:18 - INFO - ✓ Transcrição Gemini salva (9586 caracteres) em video_2_GeIieiPo2Fw
+2026-02-24 18:23:18 - INFO - Solicitando transcrição Whisper para: GeIieiPo2Fw
+2026-02-24 18:23:18 - INFO - Transcrevendo via Whisper: GeIieiPo2Fw.m4a (0.6 MB)

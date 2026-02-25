@@ -186,9 +186,8 @@ def structure_comments(comments_data: List[Dict]) -> List[Dict]:
     return comments_estruturados
 
 
-def save_json(video_info: Dict, comments: List[Dict], transcription: str, video_folder: str) -> None:
+def save_json(video_info: Dict, comments: List[Dict], video_folder: str) -> None:
     try:
-        word_count = len(transcription.split()) if transcription and transcription.strip() else 0
         json_data = {
             '_metadata': {
                 'source': 'youtube_data_api_v3',
@@ -196,13 +195,6 @@ def save_json(video_info: Dict, comments: List[Dict], transcription: str, video_
                 'schema_version': '2.0',
             },
             'video': video_info,
-            'transcription': {
-                'text': transcription or '',
-                'language': video_info.get('language', 'unknown'),
-                'source': 'auto_generated',
-                'word_count': word_count,
-                'has_timestamps': False,
-            },
             'comments': comments,
             'engagement': compute_engagement(video_info, comments),
         }
@@ -213,7 +205,6 @@ def save_json(video_info: Dict, comments: List[Dict], transcription: str, video_
         json_raw = {
             'video': video_info,
             'comments': comments,
-            'transcription': transcription,
         }
         json_raw_file = os.path.join(video_folder, "dados_raw.json")
         with open(json_raw_file, "w", encoding="utf-8") as f:
@@ -320,19 +311,10 @@ def save_replies_csv(comments: List[Dict], video_folder: str) -> None:
         logger.error(f"Erro ao salvar CSV de respostas: {e}")
 
 
-def save_transcription(transcription: str, video_folder: str) -> None:
-    if not transcription or not transcription.strip():
-        return
-
-    try:
-        trans_file = os.path.join(video_folder, "transcricao.txt")
-        with open(trans_file, "w", encoding="utf-8") as f:
-            f.write(transcription)
-    except Exception as e:
-        logger.error(f"Erro ao salvar transcrição: {e}")
 
 
-def print_summary(video_info: Dict, comments: List[Dict], transcription: str, video_folder: str) -> None:
+
+def print_summary(video_info: Dict, comments: List[Dict], video_folder: str) -> None:
     logger.info(f"✓ Dados salvos em: {video_folder}")
     saved_files = ["dados.json", "dados_raw.json", "dados.txt"]
 
@@ -346,9 +328,6 @@ def print_summary(video_info: Dict, comments: List[Dict], transcription: str, vi
         total_respostas = sum(len(c['replies']) for c in comments)
         saved_files.append(f"respostas.csv ({total_respostas} respostas)")
 
-    if transcription and transcription.strip():
-        saved_files.append("transcricao.txt")
-
     for file in saved_files:
         logger.info(f"  - {file}")
 
@@ -357,22 +336,20 @@ def save_video_data(video_data: Dict, video_folder: str) -> None:
     try:
         video_details = video_data.get('video_details', {})
         comments_data = video_data.get('comments_data', [])
-        transcription = video_data.get('transcription', '')
 
         video_info = extract_video_info(video_data, video_details)
         comments = structure_comments(comments_data)
 
-        if not video_info and not comments and not transcription:
+        if not video_info and not comments:
             logger.warning(f"⚠ Nenhum dado coletado para {video_folder}")
 
-        save_json(video_info, comments, transcription, video_folder)
+        save_json(video_info, comments, video_folder)
         save_txt(video_info, comments, video_folder)
         save_video_csv(video_info, video_folder)
         save_comments_csv(comments, video_folder)
         save_replies_csv(comments, video_folder)
-        save_transcription(transcription, video_folder)
 
-        print_summary(video_info, comments, transcription, video_folder)
+        print_summary(video_info, comments, video_folder)
 
     except json.JSONDecodeError as e:
         logger.error(f"Erro ao processar JSON dos dados: {e}")

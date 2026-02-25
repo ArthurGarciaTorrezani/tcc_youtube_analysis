@@ -1,0 +1,61 @@
+{
+  "_metadata": {
+    "source": "youtube_data_api_v3",
+    "collected_at": "2026-02-24T21:11:52Z",
+    "schema_version": "2.0"
+  },
+  "video": {
+    "video_id": "v2r2LX3EwY0",
+    "url": "https://www.youtube.com/shorts/v2r2LX3EwY0",
+    "title": "#shorts #funny#love#music#trending#youtubeshorts#youtube  #funny #duet #foryou#pov #storytime",
+    "description": "",
+    "published_at": "2026-02-21T17:01:22Z",
+    "channel_title": "Jack",
+    "channel_id": "UC-_1NShRoN_KiWjFTRFGIDw",
+    "view_count": 62898,
+    "like_count": 2868,
+    "comment_count": 2,
+    "duration_iso": "PT59S",
+    "duration_seconds": 59,
+    "content_type": "short",
+    "language": "en-US",
+    "madeForKids": false
+  },
+  "transcription": {
+    "text": "",
+    "language": "en-US",
+    "source": "auto_generated",
+    "word_count": 0,
+    "has_timestamps": false
+  },
+  "comments": [
+    {
+      "comment_id": "UgzdyOh24HJbWo1V_ft4AaABAg",
+      "author": "@DaviWeslleysoares",
+      "text": "Kk",
+      "like_count": 2,
+      "published_at": "2026-02-22T22:51:44Z",
+      "flags": [
+        "low_quality"
+      ],
+      "replies": []
+    },
+    {
+      "comment_id": "UgwImbbZyflAeKFQg-h4AaABAg",
+      "author": "@FernandaSilva-ir7jj",
+      "text": "Parte 2",
+      "like_count": 2,
+      "published_at": "2026-02-22T21:09:41Z",
+      "flags": [
+        "low_quality"
+      ],
+      "replies": []
+    }
+  ],
+  "engagement": {
+    "like_view_ratio": 0.0456,
+    "comment_view_ratio": 3.2e-05,
+    "comments_with_replies": 0,
+    "total_replies": 0
+  }
+}

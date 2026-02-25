@@ -1,0 +1,76 @@
+2026-02-24 18:24:33 - INFO - Iniciando WebDriver Chrome...
+2026-02-24 18:24:49 - INFO - 📁 Pasta da coleta criada: dados\coleta_20260224_182449
+2026-02-24 18:24:49 - INFO - 
+============================================================
+2026-02-24 18:24:49 - INFO - VÍDEO 1/2
+2026-02-24 18:24:49 - INFO - ============================================================
+2026-02-24 18:24:49 - INFO - Video ID: BEDQTVwNpP8
+2026-02-24 18:24:49 - INFO - Buscando informações do vídeo...
+2026-02-24 18:24:49 - INFO - ✓ Informações do vídeo obtidas
+2026-02-24 18:24:49 - INFO - Buscando comentários e respostas...
+2026-02-24 18:24:49 - INFO - Buscando comentários - página 1...
+2026-02-24 18:24:50 - INFO - Total de comentários coletados: 2
+2026-02-24 18:24:50 - INFO - ✓ 2 comentários coletados
+2026-02-24 18:24:50 - INFO - ✓ 0 respostas coletadas
+2026-02-24 18:24:50 - INFO - Salvando dados coletados (sem transcrição)...
+2026-02-24 18:24:50 - INFO - ✓ Dados salvos em: dados\coleta_20260224_182449\video_1_BEDQTVwNpP8
+2026-02-24 18:24:50 - INFO -   - dados.json
+2026-02-24 18:24:50 - INFO -   - dados_raw.json
+2026-02-24 18:24:50 - INFO -   - dados.txt
+2026-02-24 18:24:50 - INFO -   - video.csv
+2026-02-24 18:24:50 - INFO -   - comentarios.csv (2 comentários)
+2026-02-24 18:24:50 - INFO - ✓ Dados salvos com sucesso
+2026-02-24 18:24:50 - INFO - Navegando para próximo vídeo...
+2026-02-24 18:24:52 - INFO - 
+============================================================
+2026-02-24 18:24:52 - INFO - VÍDEO 2/2
+2026-02-24 18:24:52 - INFO - ============================================================
+2026-02-24 18:24:52 - INFO - Video ID: LBJ4qTIHXrU
+2026-02-24 18:24:52 - INFO - Buscando informações do vídeo...
+2026-02-24 18:24:52 - INFO - ✓ Informações do vídeo obtidas
+2026-02-24 18:24:52 - INFO - Buscando comentários e respostas...
+2026-02-24 18:24:52 - INFO - Buscando comentários - página 1...
+2026-02-24 18:24:53 - INFO - Total de comentários coletados: 12
+2026-02-24 18:24:53 - INFO - ✓ 12 comentários coletados
+2026-02-24 18:24:53 - INFO - ✓ 2 respostas coletadas
+2026-02-24 18:24:53 - INFO - Salvando dados coletados (sem transcrição)...
+2026-02-24 18:24:53 - INFO - ✓ Dados salvos em: dados\coleta_20260224_182449\video_2_LBJ4qTIHXrU
+2026-02-24 18:24:53 - INFO -   - dados.json
+2026-02-24 18:24:53 - INFO -   - dados_raw.json
+2026-02-24 18:24:53 - INFO -   - dados.txt
+2026-02-24 18:24:53 - INFO -   - video.csv
+2026-02-24 18:24:53 - INFO -   - comentarios.csv (12 comentários)
+2026-02-24 18:24:53 - INFO -   - respostas.csv (2 respostas)
+2026-02-24 18:24:53 - INFO - ✓ Dados salvos com sucesso
+2026-02-24 18:24:53 - INFO - Navegando para próximo vídeo...
+2026-02-24 18:24:55 - INFO - Fechando WebDriver...
+2026-02-24 18:24:58 - INFO - 
+============================================================
+2026-02-24 18:24:58 - INFO - FASE 2 — DOWNLOAD + TRANSCRIÇÕES (GEMINI + WHISPER)
+2026-02-24 18:24:58 - INFO - ============================================================
+2026-02-24 18:24:58 - INFO - 
+--- Processando: BEDQTVwNpP8 (video_1_BEDQTVwNpP8) ---
+2026-02-24 18:24:58 - INFO - Baixando vídeo via yt-dlp: BEDQTVwNpP8
+2026-02-24 18:24:58 - INFO - Iniciando download do vídeo: BEDQTVwNpP8
+2026-02-24 18:24:59 - INFO - ✓ Vídeo baixado: dados\coleta_20260224_182449\video_1_BEDQTVwNpP8\BEDQTVwNpP8.m4a
+2026-02-24 18:24:59 - INFO - Solicitando transcrição Gemini para: BEDQTVwNpP8
+2026-02-24 18:24:59 - INFO - Solicitando transcrição ao Gemini para: https://www.youtube.com/shorts/BEDQTVwNpP8
+2026-02-24 18:25:51 - INFO - Transcrição obtida via Gemini: 12776 caracteres
+2026-02-24 18:25:51 - INFO - ✓ Transcrição Gemini salva (12776 caracteres) em video_1_BEDQTVwNpP8
+2026-02-24 18:25:51 - INFO - Solicitando transcrição Whisper para: BEDQTVwNpP8
+2026-02-24 18:25:51 - INFO - Transcrevendo via Whisper: BEDQTVwNpP8.m4a (0.5 MB)
+2026-02-24 18:25:51 - INFO - Carregando modelo faster-whisper (base, CUDA)...
+2026-02-24 18:25:52 - INFO - ✓ Modelo faster-whisper carregado com sucesso
+2026-02-24 18:25:52 - ERROR - Erro ao obter transcrição via Whisper: Library cublas64_12.dll is not found or cannot be loaded
+2026-02-24 18:25:52 - WARNING - ⚠️  Transcrição Whisper não disponível para BEDQTVwNpP8
+2026-02-24 18:25:52 - INFO - 
+--- Processando: LBJ4qTIHXrU (video_2_LBJ4qTIHXrU) ---
+2026-02-24 18:25:52 - INFO - Baixando vídeo via yt-dlp: LBJ4qTIHXrU
+2026-02-24 18:25:52 - INFO - Iniciando download do vídeo: LBJ4qTIHXrU
+2026-02-24 18:25:54 - INFO - ✓ Vídeo baixado: dados\coleta_20260224_182449\video_2_LBJ4qTIHXrU\LBJ4qTIHXrU.m4a
+2026-02-24 18:25:54 - INFO - Solicitando transcrição Gemini para: LBJ4qTIHXrU
+2026-02-24 18:25:54 - INFO - Solicitando transcrição ao Gemini para: https://www.youtube.com/shorts/LBJ4qTIHXrU
+2026-02-24 18:26:16 - INFO - Transcrição obtida via Gemini: 5274 caracteres
+2026-02-24 18:26:16 - INFO - ✓ Transcrição Gemini salva (5274 caracteres) em video_2_LBJ4qTIHXrU
+2026-02-24 18:26:16 - INFO - Solicitando transcrição Whisper para: LBJ4qTIHXrU
+2026-02-24 18:26:16 - INFO - Transcrevendo via Whisper: LBJ4qTIHXrU.m4a (0.3 MB)

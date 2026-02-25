@@ -19,7 +19,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from utils import (
     get_data_comments,
     get_data_videos,
-    get_transcription,
     save_video_data,
 )
 
@@ -56,7 +55,6 @@ def setup_logging(log_dir="logs"):
 
 def collect_video_data(driver, wait, video_index, num_videos,
                        collection_folder, stats):
-    """Fase 1: coleta dados do YouTube (vídeo + comentários) via API."""
     logger = logging.getLogger("YoutubeCollector")
 
     try:
@@ -73,7 +71,6 @@ def collect_video_data(driver, wait, video_index, num_videos,
 
         video_data = {"video_id": video_id, "url": url_atual}
 
-        # --- Dados do vídeo ---
         logger.info("Buscando informações do vídeo...")
         data_video = get_data_videos(video_id)
         if "error" in data_video:
@@ -84,7 +81,6 @@ def collect_video_data(driver, wait, video_index, num_videos,
         video_data["video_details"] = data_video
         logger.info("✓ Informações do vídeo obtidas")
 
-        # --- Comentários ---
         logger.info("Buscando comentários e respostas...")
         data_comments = get_data_comments(video_id)
 
@@ -103,14 +99,12 @@ def collect_video_data(driver, wait, video_index, num_videos,
 
         video_data["comments_data"] = data_comments
 
-        # --- Salva sem transcrição por enquanto ---
         logger.info("Salvando dados coletados (sem transcrição)...")
         save_video_data(video_data, video_folder)
         logger.info("✓ Dados salvos com sucesso")
 
         stats["videos_coletados"] += 1
 
-        # --- Navega para o próximo vídeo ---
         logger.info("Navegando para próximo vídeo...")
         driver.find_element(By.TAG_NAME, "body").send_keys(Keys.ARROW_DOWN)
         wait.until(lambda d: d.current_url != url_atual)
@@ -136,57 +130,6 @@ def process_videos(driver, wait, num_videos, collection_folder, stats):
             logger.warning(f"Interrompendo coleta após erro no vídeo {i + 1}")
             continue
 
-
-def enrich_with_transcriptions(collection_folder, stats):
-    """Fase 2: percorre as pastas da coleta e obtém transcrição via Gemini."""
-    logger = logging.getLogger("YoutubeCollector")
-
-    logger.info(f"\n{'='*60}")
-    logger.info("FASE 2 — OBTENDO TRANSCRIÇÕES VIA GEMINI")
-    logger.info("=" * 60)
-
-    video_folders = [
-        os.path.join(collection_folder, d)
-        for d in os.listdir(collection_folder)
-        if os.path.isdir(os.path.join(collection_folder, d))
-    ]
-
-    if not video_folders:
-        logger.warning("Nenhuma pasta de vídeo encontrada para transcrever.")
-        return
-
-    for video_folder in sorted(video_folders):
-        folder_name = os.path.basename(video_folder)
-
-        # Extrai o video_id do nome da pasta (ex: video_1_AbCdEfG)
-        parts = folder_name.split("_", 2)
-        if len(parts) < 3:
-            logger.warning(f"Pasta com nome inesperado, ignorando: {folder_name}")
-            continue
-
-        video_id = parts[2]
-        transcription_file = os.path.join(video_folder, "transcricao.txt")
-
-        # Pula se já tiver transcrição
-        if os.path.exists(transcription_file):
-            logger.info(f"✓ Transcrição já existe para {video_id}, pulando.")
-            continue
-
-        logger.info(f"Solicitando transcrição para: {video_id}")
-        transcription = get_transcription(video_id)
-
-        if transcription:
-            try:
-                with open(transcription_file, "w", encoding="utf-8") as f:
-                    f.write(transcription)
-                logger.info(f"✓ Transcrição salva ({len(transcription)} caracteres) em {folder_name}")
-                stats["videos_transcritos"] += 1
-            except Exception as e:
-                logger.error(f"❌ Erro ao salvar transcrição de {video_id}: {e}")
-        else:
-            logger.warning(f"⚠️  Transcrição não disponível para {video_id}")
-
-
 def main():
     logger = setup_logging()
     driver = None
@@ -194,7 +137,6 @@ def main():
     stats = {
         "videos_coletados": 0,
         "videos_com_erro": 0,
-        "videos_transcritos": 0,
         "total_comentarios": 0,
         "total_respostas": 0,
         "inicio": datetime.now(),
@@ -203,7 +145,6 @@ def main():
     collection_folder = None
 
     try:
-        # ── FASE 1: Coleta via Selenium + YouTube API ──────────────────────
         logger.info("Iniciando WebDriver Chrome...")
         driver = webdriver.Chrome()
 
@@ -232,22 +173,11 @@ def main():
             logger.info("Fechando WebDriver...")
             driver.quit()
 
-    # ── FASE 2: Transcrição via Gemini (após fechar o navegador) ───────────
-    if collection_folder and os.path.exists(collection_folder):
-        try:
-            enrich_with_transcriptions(collection_folder, stats)
-        except Exception as e:
-            logger.error(f"❌ Erro na fase de transcrição: {e}", exc_info=True)
-    else:
-        logger.warning("Pasta de coleta não encontrada. Transcrição ignorada.")
-
-    # ── Resumo ─────────────────────────────────────────────────────────────
     duracao = datetime.now() - stats["inicio"]
     logger.info(f"\n{'='*60}")
     logger.info("RESUMO DA COLETA")
     logger.info("=" * 60)
     logger.info(f"✓ Vídeos coletados com sucesso: {stats['videos_coletados']}")
-    logger.info(f"✓ Vídeos transcritos: {stats['videos_transcritos']}")
     logger.info(f"❌ Vídeos com erro: {stats['videos_com_erro']}")
     logger.info(f"📝 Total de comentários: {stats['total_comentarios']}")
     logger.info(f"💬 Total de respostas: {stats['total_respostas']}")
