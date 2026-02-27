@@ -1,0 +1,90 @@
+2026-02-25 17:46:44 - INFO - Iniciando WebDriver Chrome...
+2026-02-25 17:46:48 - ERROR - ❌ Erro no WebDriver: Message: session not created: Chrome failed to start: crashed.
+  (chrome not reachable)
+  (The process started from chrome location C:\Program Files\Google\Chrome\Application\chrome.exe is no longer running, so ChromeDriver is assuming that Chrome has crashed.); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff7f117aa55
+	0x7ff7f0ed8630
+	0x7ff7f0c6d75d
+	0x7ff7f0cae52e
+	0x7ff7f0ca95d9
+	0x7ff7f0cffc51
+	0x7ff7f0cff4b6
+	0x7ff7f0cb9098
+	0x7ff7f0cb9f83
+	0x7ff7f11a7810
+	0x7ff7f11a1afd
+	0x7ff7f11c2c1a
+	0x7ff7f0ef3345
+	0x7ff7f0efb81c
+	0x7ff7f0ee1924
+	0x7ff7f0ee1ad6
+	0x7ff7f0ec7e47
+	0x7ffcd971e8d7
+	0x7ffcdabec40c
+Traceback (most recent call last):
+  File "<ipython-input-1-e9785eb17c9d>", line 154, in main
+    driver = webdriver.Chrome(opts)
+  File "c:\Users\Arthur\anaconda3\Lib\site-packages\selenium\webdriver\chrome\webdriver.py", line 45, in __init__
+    super().__init__(
+    ~~~~~~~~~~~~~~~~^
+        browser_name=DesiredCapabilities.CHROME["browserName"],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        keep_alive=keep_alive,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\Arthur\anaconda3\Lib\site-packages\selenium\webdriver\chromium\webdriver.py", line 66, in __init__
+    super().__init__(command_executor=executor, options=self.options)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Arthur\anaconda3\Lib\site-packages\selenium\webdriver\common\webdriver.py", line 25, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "c:\Users\Arthur\anaconda3\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 271, in __init__
+    self.start_session(capabilities)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "c:\Users\Arthur\anaconda3\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 366, in start_session
+    response = self.execute(Command.NEW_SESSION, caps)["value"]
+               ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Arthur\anaconda3\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 446, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "c:\Users\Arthur\anaconda3\Lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.SessionNotCreatedException: Message: session not created: Chrome failed to start: crashed.
+  (chrome not reachable)
+  (The process started from chrome location C:\Program Files\Google\Chrome\Application\chrome.exe is no longer running, so ChromeDriver is assuming that Chrome has crashed.); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff7f117aa55
+	0x7ff7f0ed8630
+	0x7ff7f0c6d75d
+	0x7ff7f0cae52e
+	0x7ff7f0ca95d9
+	0x7ff7f0cffc51
+	0x7ff7f0cff4b6
+	0x7ff7f0cb9098
+	0x7ff7f0cb9f83
+	0x7ff7f11a7810
+	0x7ff7f11a1afd
+	0x7ff7f11c2c1a
+	0x7ff7f0ef3345
+	0x7ff7f0efb81c
+	0x7ff7f0ee1924
+	0x7ff7f0ee1ad6
+	0x7ff7f0ec7e47
+	0x7ffcd971e8d7
+	0x7ffcdabec40c
+
+2026-02-25 17:46:48 - INFO - 
+============================================================
+2026-02-25 17:46:48 - INFO - RESUMO DA COLETA
+2026-02-25 17:46:48 - INFO - ============================================================
+2026-02-25 17:46:48 - INFO - ✓ Vídeos coletados com sucesso: 0
+2026-02-25 17:46:48 - INFO - ❌ Vídeos com erro: 0
+2026-02-25 17:46:48 - INFO - 📝 Total de comentários: 0
+2026-02-25 17:46:48 - INFO - 💬 Total de respostas: 0
+2026-02-25 17:46:48 - INFO - ⏱️  Tempo total: 0:00:04.718014
+2026-02-25 17:46:48 - INFO - ✓ Coleta finalizada!

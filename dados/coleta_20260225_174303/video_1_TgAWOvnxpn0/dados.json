@@ -1,0 +1,99 @@
+{
+  "_metadata": {
+    "source": "youtube_data_api_v3",
+    "collected_at": "2026-02-25T20:43:04Z",
+    "schema_version": "2.0"
+  },
+  "video": {
+    "video_id": "TgAWOvnxpn0",
+    "url": "https://www.youtube.com/shorts/TgAWOvnxpn0",
+    "title": "#foryou #fyp #pov #youtube #funny",
+    "description": "#foryou #fyp #pov #youtube #funny",
+    "published_at": "2026-02-24T09:36:57Z",
+    "channel_title": "Hsvsob Jzvs",
+    "channel_id": "UCTODqX8kE7sOjGzvdFY0X4g",
+    "view_count": 120468,
+    "like_count": 1706,
+    "comment_count": 8,
+    "duration_iso": "PT27S",
+    "duration_seconds": 27,
+    "content_type": "short",
+    "language": "pt-PT",
+    "madeForKids": false
+  },
+  "comments": [
+    {
+      "comment_id": "UgwsJ_1vnucwDpOUPcZ4AaABAg",
+      "author": "@MariaAlicedeOliveiraBrito",
+      "text": "𝒆𝒍𝒂 𝒔𝒆𝒏𝒅𝒐 𝒃𝒆𝒎 𝒄𝒂𝒍𝒎𝒊𝒏𝒉𝒂 𝒈𝒓𝒂𝒄̧𝒂𝒔 𝒂 𝒅𝒆𝒖𝒔 𝒌𝒌𝒌𝒌",
+      "like_count": 1,
+      "published_at": "2026-02-25T04:05:42Z",
+      "flags": [],
+      "replies": []
+    },
+    {
+      "comment_id": "UgwXFy6YMCc_f4poRld4AaABAg",
+      "author": "@arletetutiya1752",
+      "text": "❤❤❤❤❤❤❤❤❤",
+      "like_count": 1,
+      "published_at": "2026-02-24T15:28:21Z",
+      "flags": [
+        "emoji_only"
+      ],
+      "replies": []
+    },
+    {
+      "comment_id": "Ugz8n1HUA_6m34UOk414AaABAg",
+      "author": "@VanessaRobertacosta",
+      "text": "o signo dela tinha que ser escorpião áries capricórnio ou aguario",
+      "like_count": 4,
+      "published_at": "2026-02-24T14:09:01Z",
+      "flags": [],
+      "replies": [
+        {
+          "reply_id": "Ugz8n1HUA_6m34UOk414AaABAg.ATbgX7f6QaxATcvWPkERy8",
+          "author": "@HsvsobJzvs",
+          "text": "🧐🧐❤❤",
+          "like_count": 0,
+          "published_at": "2026-02-25T01:39:14Z"
+        },
+        {
+          "reply_id": "Ugz8n1HUA_6m34UOk414AaABAg.ATbgX7f6QaxATeLEIjjR5w",
+          "author": "@netysantos292",
+          "text": "Nossa tô ofendida eu sou de escorpião 😂❤",
+          "like_count": 1,
+          "published_at": "2026-02-25T14:51:56Z"
+        },
+        {
+          "reply_id": "Ugz8n1HUA_6m34UOk414AaABAg.ATbgX7f6QaxATelqWHs5J_",
+          "author": "@my_onze",
+          "text": "Que ofensa...\n\nEu sou de escorpião...e nunca fui assim sou calma chorosa e paciente mesmo que minhas amiga são sejam e elas me protegem por que eu não sei me defender 🤓☝️",
+          "like_count": 0,
+          "published_at": "2026-02-25T18:53:13Z"
+        },
+        {
+          "reply_id": "Ugz8n1HUA_6m34UOk414AaABAg.ATbgX7f6QaxATempR44JF7",
+          "author": "@nayannenycolle5194",
+          "text": "Pense antes de falar seu lol, esses signos não são problemáticos igual essa garota!!",
+          "like_count": 0,
+          "published_at": "2026-02-25T19:01:48Z"
+        }
+      ]
+    },
+    {
+      "comment_id": "UgxNF0-dtUTghte_-iN4AaABAg",
+      "author": "@polazin_du_hupi",
+      "text": "Uma dessas já falou assim comigo e eu caguei na mochila dela",
+      "like_count": 0,
+      "published_at": "2026-02-24T12:56:56Z",
+      "flags": [],
+      "replies": []
+    }
+  ],
+  "engagement": {
+    "like_view_ratio": 0.0142,
+    "comment_view_ratio": 6.6e-05,
+    "comments_with_replies": 1,
+    "total_replies": 4
+  }
+}

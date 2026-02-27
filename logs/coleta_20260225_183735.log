@@ -1,0 +1,207 @@
+2026-02-25 18:37:35 - INFO - Iniciando WebDriver Chrome...
+2026-02-25 18:38:37 - ERROR - ❌ Erro no WebDriver: Message: session not created: DevToolsActivePort file doesn't exist; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff66cf6aa55
+	0x7ff66ccc8630
+	0x7ff66ca5d75d
+	0x7ff66caa3ad6
+	0x7ff66ca9ef31
+	0x7ff66ca995d9
+	0x7ff66caefc51
+	0x7ff66caef4b6
+	0x7ff66caa9098
+	0x7ff66caa9f83
+	0x7ff66cf97810
+	0x7ff66cf91afd
+	0x7ff66cfb2c1a
+	0x7ff66cce3345
+	0x7ff66cceb81c
+	0x7ff66ccd1924
+	0x7ff66ccd1ad6
+	0x7ff66ccb7e47
+	0x7ffcd971e8d7
+	0x7ffcdabec40c
+Traceback (most recent call last):
+  File "<ipython-input-1-af5a16c11c97>", line 164, in main
+    driver = webdriver.Chrome(service=service, options=options)
+  File "c:\Users\Arthur\anaconda3\Lib\site-packages\selenium\webdriver\chrome\webdriver.py", line 45, in __init__
+    super().__init__(
+    ~~~~~~~~~~~~~~~~^
+        browser_name=DesiredCapabilities.CHROME["browserName"],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        keep_alive=keep_alive,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\Arthur\anaconda3\Lib\site-packages\selenium\webdriver\chromium\webdriver.py", line 66, in __init__
+    super().__init__(command_executor=executor, options=self.options)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Arthur\anaconda3\Lib\site-packages\selenium\webdriver\common\webdriver.py", line 25, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "c:\Users\Arthur\anaconda3\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 271, in __init__
+    self.start_session(capabilities)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "c:\Users\Arthur\anaconda3\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 366, in start_session
+    response = self.execute(Command.NEW_SESSION, caps)["value"]
+               ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Arthur\anaconda3\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 446, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "c:\Users\Arthur\anaconda3\Lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.SessionNotCreatedException: Message: session not created: DevToolsActivePort file doesn't exist; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff66cf6aa55
+	0x7ff66ccc8630
+	0x7ff66ca5d75d
+	0x7ff66caa3ad6
+	0x7ff66ca9ef31
+	0x7ff66ca995d9
+	0x7ff66caefc51
+	0x7ff66caef4b6
+	0x7ff66caa9098
+	0x7ff66caa9f83
+	0x7ff66cf97810
+	0x7ff66cf91afd
+	0x7ff66cfb2c1a
+	0x7ff66cce3345
+	0x7ff66cceb81c
+	0x7ff66ccd1924
+	0x7ff66ccd1ad6
+	0x7ff66ccb7e47
+	0x7ffcd971e8d7
+	0x7ffcdabec40c
+
+2026-02-25 18:38:37 - INFO - 
+============================================================
+2026-02-25 18:38:37 - INFO - RESUMO DA COLETA
+2026-02-25 18:38:37 - INFO - ============================================================
+2026-02-25 18:38:37 - INFO - ✓ Vídeos coletados com sucesso: 0
+2026-02-25 18:38:37 - INFO - ❌ Vídeos com erro: 0
+2026-02-25 18:38:37 - INFO - 📝 Total de comentários: 0
+2026-02-25 18:38:37 - INFO - 💬 Total de respostas: 0
+2026-02-25 18:38:37 - INFO - ⏱️  Tempo total: 0:01:02.279559
+2026-02-25 18:38:37 - INFO - ✓ Coleta finalizada!
+2026-02-25 18:39:53 - INFO - Iniciando WebDriver Chrome...
+2026-02-25 18:39:53 - ERROR - ❌ Erro fatal na coleta: name 'ep' is not defined
+Traceback (most recent call last):
+  File "<ipython-input-2-b7bd2ad1f38c>", line 149, in main
+    driver = webdriver.Chrome(executable_path=ep,options=options)
+                                              ^^
+NameError: name 'ep' is not defined. Did you mean: 'e'?
+2026-02-25 18:39:53 - INFO - 
+============================================================
+2026-02-25 18:39:53 - INFO - RESUMO DA COLETA
+2026-02-25 18:39:53 - INFO - ============================================================
+2026-02-25 18:39:53 - INFO - ✓ Vídeos coletados com sucesso: 0
+2026-02-25 18:39:53 - INFO - ❌ Vídeos com erro: 0
+2026-02-25 18:39:53 - INFO - 📝 Total de comentários: 0
+2026-02-25 18:39:53 - INFO - 💬 Total de respostas: 0
+2026-02-25 18:39:53 - INFO - ⏱️  Tempo total: 0:00:00.004092
+2026-02-25 18:39:53 - INFO - ✓ Coleta finalizada!
+2026-02-25 18:40:00 - INFO - Iniciando WebDriver Chrome...
+2026-02-25 18:40:09 - INFO - 📁 Pasta da coleta criada: dados\coleta_20260225_184009
+2026-02-25 18:40:09 - INFO - 
+============================================================
+2026-02-25 18:40:09 - INFO - VÍDEO 1/2
+2026-02-25 18:40:09 - INFO - ============================================================
+2026-02-25 18:40:09 - INFO - Video ID: UXmaftmz8so
+2026-02-25 18:40:09 - INFO - Buscando informações do vídeo...
+2026-02-25 18:40:10 - INFO - ✓ Informações do vídeo obtidas
+2026-02-25 18:40:10 - INFO - Buscando comentários e respostas...
+2026-02-25 18:40:10 - INFO - Buscando comentários - página 1...
+2026-02-25 18:40:10 - INFO - Total de comentários coletados: 35
+2026-02-25 18:40:10 - INFO - ✓ 35 comentários coletados
+2026-02-25 18:40:10 - INFO - ✓ 11 respostas coletadas
+2026-02-25 18:40:10 - INFO - Salvando dados coletados (sem transcrição)...
+2026-02-25 18:40:10 - INFO - ✓ Dados salvos em: dados\coleta_20260225_184009\video_1_UXmaftmz8so
+2026-02-25 18:40:10 - INFO -   - dados.json
+2026-02-25 18:40:10 - INFO -   - dados_raw.json
+2026-02-25 18:40:10 - INFO -   - dados.txt
+2026-02-25 18:40:10 - INFO -   - video.csv
+2026-02-25 18:40:10 - INFO -   - comentarios.csv (35 comentários)
+2026-02-25 18:40:10 - INFO -   - respostas.csv (11 respostas)
+2026-02-25 18:40:10 - INFO - ✓ Dados salvos com sucesso
+2026-02-25 18:40:10 - INFO - Navegando para próximo vídeo...
+2026-02-25 18:40:13 - INFO - 
+============================================================
+2026-02-25 18:40:13 - INFO - VÍDEO 2/2
+2026-02-25 18:40:13 - INFO - ============================================================
+2026-02-25 18:40:13 - ERROR - ❌ Erro ao processar vídeo: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=145.0.7632.116); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff7f117aa55
+	0x7ff7f0ed8630
+	0x7ff7f0c6d75d
+	0x7ff7f0c58c72
+	0x7ff7f0c7f015
+	0x7ff7f0cf90e0
+	0x7ff7f0d15282
+	0x7ff7f0cb9098
+	0x7ff7f0cb9f83
+	0x7ff7f11a7810
+	0x7ff7f11a1afd
+	0x7ff7f11c2c1a
+	0x7ff7f0ef3345
+	0x7ff7f0efb81c
+	0x7ff7f0ee1924
+	0x7ff7f0ee1ad6
+	0x7ff7f0ec7e47
+	0x7ffcd971e8d7
+	0x7ffcdabec40c
+Traceback (most recent call last):
+  File "<ipython-input-3-92a88f821e78>", line 65, in collect_video_data
+    url_atual = driver.current_url
+                ^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Arthur\anaconda3\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 556, in current_url
+    return self.execute(Command.GET_CURRENT_URL)["value"]
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Arthur\anaconda3\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 446, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "c:\Users\Arthur\anaconda3\Lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.InvalidSessionIdException: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=145.0.7632.116); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff7f117aa55
+	0x7ff7f0ed8630
+	0x7ff7f0c6d75d
+	0x7ff7f0c58c72
+	0x7ff7f0c7f015
+	0x7ff7f0cf90e0
+	0x7ff7f0d15282
+	0x7ff7f0cb9098
+	0x7ff7f0cb9f83
+	0x7ff7f11a7810
+	0x7ff7f11a1afd
+	0x7ff7f11c2c1a
+	0x7ff7f0ef3345
+	0x7ff7f0efb81c
+	0x7ff7f0ee1924
+	0x7ff7f0ee1ad6
+	0x7ff7f0ec7e47
+	0x7ffcd971e8d7
+	0x7ffcdabec40c
+
+2026-02-25 18:40:13 - WARNING - Interrompendo coleta após erro no vídeo 2
+2026-02-25 18:40:13 - INFO - Fechando WebDriver...
+2026-02-25 18:40:15 - INFO - 
+============================================================
+2026-02-25 18:40:15 - INFO - RESUMO DA COLETA
+2026-02-25 18:40:15 - INFO - ============================================================
+2026-02-25 18:40:15 - INFO - ✓ Vídeos coletados com sucesso: 1
+2026-02-25 18:40:15 - INFO - ❌ Vídeos com erro: 1
+2026-02-25 18:40:15 - INFO - 📝 Total de comentários: 35
+2026-02-25 18:40:15 - INFO - 💬 Total de respostas: 11
+2026-02-25 18:40:15 - INFO - ⏱️  Tempo total: 0:00:14.836669
+2026-02-25 18:40:15 - INFO - 📁 Dados salvos em: dados\coleta_20260225_184009
+2026-02-25 18:40:15 - INFO - ✓ Coleta finalizada!

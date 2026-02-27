@@ -1,0 +1,54 @@
+{
+  "_metadata": {
+    "source": "youtube_data_api_v3",
+    "collected_at": "2026-02-25T20:50:06Z",
+    "schema_version": "2.0"
+  },
+  "video": {
+    "video_id": "jVFEwC1dbFs",
+    "url": "https://www.youtube.com/shorts/jVFEwC1dbFs",
+    "title": "pov: brasileiro 🇧🇷🤣 #meme #brasileiros #shorts",
+    "description": "Aprenda a !EDITAR RAPIDAMENTE! ⤵️\n\nhttps://pay.kiwify.com.br/4jmQqbr?afid=da61htH9",
+    "published_at": "2026-02-21T21:01:08Z",
+    "channel_title": "Mtz Edits 🤣",
+    "channel_id": "UCidRCoSrCyfS3s168Nsq0eA",
+    "view_count": 1871723,
+    "like_count": 29673,
+    "comment_count": 2,
+    "duration_iso": "PT45S",
+    "duration_seconds": 45,
+    "content_type": "short",
+    "language": "pt-PT",
+    "madeForKids": false
+  },
+  "comments": [
+    {
+      "comment_id": "UgxNMeWTR9p-rBqsJql4AaABAg",
+      "author": "@Mtz.Edits7",
+      "text": "😱 APRENDA A EDITAR COMO SER UM REI DAS EDIÇÕES EM MENOS DE 30 MINUTOS 😱 “( link na bio )”",
+      "like_count": 161,
+      "published_at": "2026-02-21T21:19:21Z",
+      "flags": [
+        "narrative"
+      ],
+      "replies": []
+    },
+    {
+      "comment_id": "UgwBTY9uWVdo_1oL7G54AaABAg",
+      "author": "@Mtz.Edits7",
+      "text": "https://pay.kiwify.com.br/4jmQqbr?afid=da61htH9",
+      "like_count": 151,
+      "published_at": "2026-02-21T21:06:18Z",
+      "flags": [
+        "low_quality"
+      ],
+      "replies": []
+    }
+  ],
+  "engagement": {
+    "like_view_ratio": 0.0159,
+    "comment_view_ratio": 1e-06,
+    "comments_with_replies": 0,
+    "total_replies": 0
+  }
+}

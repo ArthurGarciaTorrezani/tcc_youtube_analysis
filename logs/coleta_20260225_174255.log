@@ -1,0 +1,91 @@
+2026-02-25 17:42:55 - INFO - Iniciando WebDriver Chrome...
+2026-02-25 17:43:03 - INFO - 📁 Pasta da coleta criada: dados\coleta_20260225_174303
+2026-02-25 17:43:03 - INFO - 
+============================================================
+2026-02-25 17:43:03 - INFO - VÍDEO 1/2
+2026-02-25 17:43:03 - INFO - ============================================================
+2026-02-25 17:43:03 - INFO - Video ID: TgAWOvnxpn0
+2026-02-25 17:43:03 - INFO - Buscando informações do vídeo...
+2026-02-25 17:43:03 - INFO - ✓ Informações do vídeo obtidas
+2026-02-25 17:43:03 - INFO - Buscando comentários e respostas...
+2026-02-25 17:43:03 - INFO - Buscando comentários - página 1...
+2026-02-25 17:43:04 - INFO - Total de comentários coletados: 4
+2026-02-25 17:43:04 - INFO - ✓ 4 comentários coletados
+2026-02-25 17:43:04 - INFO - ✓ 4 respostas coletadas
+2026-02-25 17:43:04 - INFO - Salvando dados coletados (sem transcrição)...
+2026-02-25 17:43:04 - INFO - ✓ Dados salvos em: dados\coleta_20260225_174303\video_1_TgAWOvnxpn0
+2026-02-25 17:43:04 - INFO -   - dados.json
+2026-02-25 17:43:04 - INFO -   - dados_raw.json
+2026-02-25 17:43:04 - INFO -   - dados.txt
+2026-02-25 17:43:04 - INFO -   - video.csv
+2026-02-25 17:43:04 - INFO -   - comentarios.csv (4 comentários)
+2026-02-25 17:43:04 - INFO -   - respostas.csv (4 respostas)
+2026-02-25 17:43:04 - INFO - ✓ Dados salvos com sucesso
+2026-02-25 17:43:04 - INFO - Navegando para próximo vídeo...
+2026-02-25 17:43:07 - INFO - 
+============================================================
+2026-02-25 17:43:07 - INFO - VÍDEO 2/2
+2026-02-25 17:43:07 - INFO - ============================================================
+2026-02-25 17:43:07 - ERROR - ❌ Erro ao processar vídeo: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=145.0.7632.116); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff7f117aa55
+	0x7ff7f0ed8630
+	0x7ff7f0c6d75d
+	0x7ff7f0c58c72
+	0x7ff7f0c7f015
+	0x7ff7f0cf90e0
+	0x7ff7f0d15282
+	0x7ff7f0cb9098
+	0x7ff7f0cb9f83
+	0x7ff7f11a7810
+	0x7ff7f11a1afd
+	0x7ff7f11c2c1a
+	0x7ff7f0ef3345
+	0x7ff7f0efb81c
+	0x7ff7f0ee1924
+	0x7ff7f0ee1ad6
+	0x7ff7f0ec7e47
+	0x7ffcd971e8d7
+	0x7ffcdabec40c
+Traceback (most recent call last):
+  File "<ipython-input-1-82b41ae44c74>", line 71, in collect_video_data
+    url_atual = driver.current_url
+                ^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Arthur\anaconda3\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 556, in current_url
+    return self.execute(Command.GET_CURRENT_URL)["value"]
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Arthur\anaconda3\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 446, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "c:\Users\Arthur\anaconda3\Lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.InvalidSessionIdException: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=145.0.7632.116); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff7f117aa55
+	0x7ff7f0ed8630
+	0x7ff7f0c6d75d
+	0x7ff7f0c58c72
+	0x7ff7f0c7f015
+	0x7ff7f0cf90e0
+	0x7ff7f0d15282
+	0x7ff7f0cb9098
+	0x7ff7f0cb9f83
+	0x7ff7f11a7810
+	0x7ff7f11a1afd
+	0x7ff7f11c2c1a
+	0x7ff7f0ef3345
+	0x7ff7f0efb81c
+	0x7ff7f0ee1924
+	0x7ff7f0ee1ad6
+	0x7ff7f0ec7e47
+	0x7ffcd971e8d7
+	0x7ffcdabec40c
+
+2026-02-25 17:43:07 - WARNING - Interrompendo coleta após erro no vídeo 2
+2026-02-25 17:43:07 - INFO - Fechando WebDriver...

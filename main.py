@@ -15,6 +15,7 @@ from selenium.common.exceptions import (
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.chrome.options import Options
 
 from utils import (
     get_data_comments,
@@ -145,8 +146,11 @@ def main():
     collection_folder = None
 
     try:
+        options = Options()
+        options.add_argument(r"--user-data-dir=C:\chrome_automation_profile")
+
         logger.info("Iniciando WebDriver Chrome...")
-        driver = webdriver.Chrome()
+        driver = webdriver.Chrome(options=options)
 
         base_route = os.getenv("BASE_ROUTE")
         driver.get(base_route)
