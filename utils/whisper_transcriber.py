@@ -1,7 +1,7 @@
 # %%
-
 import logging
 import os
+
 
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
@@ -11,8 +11,12 @@ from faster_whisper import WhisperModel
 
 logger = logging.getLogger("YoutubeCollector")
 
-model = WhisperModel("base", device="cuda", compute_type="float32")
+BASE_DIR = r"C:\Users\Arthur\Desktop\Arthur\TCC\Codigo\tcc_youtube_analysis\dados"
 
+# Extensões de vídeo aceitas
+VIDEO_EXTENSIONS = (".mp4", ".webm", ".mkv", ".avi", ".mov")
+
+model = WhisperModel("base", device="cuda", compute_type="float32")
 
 def get_whisper_transcription(audio_file_path: str) -> str:
     try:
@@ -29,3 +33,56 @@ def get_whisper_transcription(audio_file_path: str) -> str:
         return ""
 
 
+def find_video_file(video_path: str) -> str | None:
+    """Retorna o caminho do primeiro arquivo de vídeo encontrado na pasta."""
+    for file in os.listdir(video_path):
+        if file.lower().endswith(VIDEO_EXTENSIONS):
+            return os.path.join(video_path, file)
+    return None
+
+
+def transcribe_all_videos(base_path=BASE_DIR):
+    """
+    Percorre todas as pastas de vídeo dentro de 'dados',
+    encontra o arquivo de vídeo baixado, transcreve com Whisper
+    e salva o resultado em 'transcricao.txt' na própria pasta do vídeo.
+    """
+    print(f"Buscando vídeos em: {base_path}")
+
+    for coleta_folder in os.listdir(base_path):
+        coleta_path = os.path.join(base_path, coleta_folder)
+
+        if not os.path.isdir(coleta_path):
+            continue
+
+        for video_folder in os.listdir(coleta_path):
+            video_path = os.path.join(coleta_path, video_folder)
+
+            if not os.path.isdir(video_path):
+                continue
+
+            # Pula se a transcrição já foi feita
+            transcricao_path = os.path.join(video_path, "transcricao.txt")
+            if os.path.exists(transcricao_path):
+                print(f"[PULANDO] Transcrição já existe em: {video_path}")
+                continue
+
+            video_file = find_video_file(video_path)
+
+            if not video_file:
+                print(f"[AVISO] Nenhum vídeo encontrado em: {video_path}")
+                continue
+
+            print(f"\nTranscrevendo: {video_file}")
+            transcricao = get_whisper_transcription(video_file)
+
+            if transcricao:
+                with open(transcricao_path, "w", encoding="utf-8") as f:
+                    f.write(transcricao)
+                print(f"[OK] Transcrição salva em: {transcricao_path}")
+            else:
+                print(f"[ERRO] Transcrição vazia para: {video_file}")
+
+
+if __name__ == "__main__":
+    transcribe_all_videos()

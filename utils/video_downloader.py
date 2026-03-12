@@ -1,56 +1,60 @@
-import logging
 import os
+import csv
+from pytubefix import YouTube
 
-from yt_dlp import YoutubeDL
-
-logger = logging.getLogger("YoutubeCollector")
-
-
-def download_video(video_id: str, output_folder: str) -> str:
-    try:
-        video_url = f"https://www.youtube.com/shorts/{video_id}"
-        output_template = os.path.join(output_folder, f"{video_id}.%(ext)s")
-
-        logger.info(f"Iniciando download do vídeo: {video_id}")
-
-        ydl_opts = {
-            "outtmpl": output_template,
-            "format": "bestaudio[ext=m4a]/bestaudio/best",
-            "noplaylist": True,
-            "quiet": True,
-            "no_warnings": True,
-        }
-
-        with YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(video_url, download=True)
-            filename = ydl.prepare_filename(info)
-
-        if filename and os.path.exists(filename):
-            logger.info(f"✓ Vídeo baixado: {filename}")
-            return filename
-
-        downloaded = _find_downloaded_file(output_folder, video_id)
-        if downloaded:
-            logger.info(f"✓ Vídeo baixado: {downloaded}")
-            return downloaded
-
-        logger.warning(f"⚠️  Arquivo baixado não encontrado para {video_id}")
-        return ""
-
-    except Exception as e:
-        logger.error(f"Erro ao baixar vídeo {video_id}: {e}")
-        return ""
+BASE_DIR = r"C:\Users\Arthur\Desktop\Arthur\TCC\Codigo\tcc_youtube_analysis\dados"
 
 
-def _find_downloaded_file(folder: str, video_id: str) -> str:
-    try:
-        for filename in os.listdir(folder):
-            if filename.startswith(video_id) and not filename.endswith(".part"):
-                filepath = os.path.join(folder, filename)
-                if os.path.isfile(filepath):
-                    return filepath
-    except Exception as e:
-        logger.error(f"Erro ao procurar arquivo baixado: {e}")
-    return ""
+def download_video(url, output_path):
+    yt = YouTube(url)
+    print(f"Baixando: {yt.title}")
+    ys = yt.streams.get_highest_resolution()
+    ys.download(output_path=output_path)
+    print(f"Salvo em: {output_path}")
 
 
+def download_all_videos(base_path=BASE_DIR):
+    """
+    Percorre todas as pastas de coleta dentro de 'dados',
+    encontra cada pasta de vídeo (video_X_...), lê o video.csv
+    e faz o download do vídeo na própria pasta do vídeo.
+    """
+
+    print(f"Buscando vídeos em: {base_path}")
+
+    for coleta_folder in os.listdir(base_path):
+        coleta_path = os.path.join(base_path, coleta_folder)
+
+        if not os.path.isdir(coleta_path):
+            continue
+
+        for video_folder in os.listdir(coleta_path):
+            video_path = os.path.join(coleta_path, video_folder)
+
+            if not os.path.isdir(video_path):
+                continue
+
+            video_csv = os.path.join(video_path, "video.csv")
+
+            if not os.path.exists(video_csv):
+                print(f"[AVISO] video.csv não encontrado em: {video_path}")
+                continue
+
+            with open(video_csv, newline="", encoding="utf-8") as f:
+                reader = csv.DictReader(f)
+                for row in reader:
+                    # Ajuste o nome da coluna conforme o seu CSV
+                    video_id = row.get("id") or row.get("video_id") or list(row.values())[0]
+                    video_id = video_id.strip()
+
+                    url = f"https://www.youtube.com/shorts/{video_id}"
+                    print(f"\nProcessando: {url}")
+
+                    try:
+                        download_video(url, output_path=video_path)
+                    except Exception as e:
+                        print(f"[ERRO] Falha ao baixar {url}: {e}")
+
+
+if __name__ == "__main__":
+    download_all_videos()
