@@ -1,4 +1,3 @@
-# %%
 from datetime import datetime
 import logging
 import os
@@ -17,7 +16,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
 
-from utils import (
+from services import (
     get_data_comments,
     get_data_videos,
     save_video_data,
@@ -82,7 +81,7 @@ def collect_video_data(driver, wait, video_index, collection_folder, stats):
             return False
 
         video_data["video_details"] = data_video
-        logger.info("✓ Informações do vídeo obtidas")
+        logger.info("Informações do vídeo obtidas")
 
         logger.info("Buscando comentários e respostas...")
         data_comments = get_data_comments(video_id)
@@ -111,7 +110,7 @@ def collect_video_data(driver, wait, video_index, collection_folder, stats):
         logger.info("Navegando para próximo vídeo...")
         driver.find_element(By.TAG_NAME, "body").send_keys(Keys.ARROW_DOWN)
         wait.until(lambda d: d.current_url != url_atual)
-        time.sleep(160)
+        time.sleep(3)
 
         return True
 
@@ -136,7 +135,7 @@ def process_videos(driver, wait, collection_folder, stats):
 
     while time.time() < end_time:
         remaining = (end_time - time.time()) / 60
-        logger.info(f"⏳ Tempo restante: {remaining:.1f} min")
+        logger.info(f"Tempo restante: {remaining:.1f} min")
 
         success = collect_video_data(driver, wait, video_index, collection_folder, stats)
         video_index += 1
@@ -145,7 +144,7 @@ def process_videos(driver, wait, collection_folder, stats):
             logger.warning(f"Erro no vídeo {video_index}. Continuando coleta...")
             continue
 
-    logger.info("⏱️  Tempo limite de 1 hora atingido. Encerrando coleta.")
+    logger.info("⏱Tempo limite de 1 hora atingido. Encerrando coleta.")
 
 
 def main():
@@ -185,9 +184,9 @@ def main():
         process_videos(driver, wait, collection_folder, stats)
 
     except WebDriverException as e:
-        logger.error(f"❌ Erro no WebDriver: {e}", exc_info=True)
+        logger.error(f"Erro no WebDriver: {e}", exc_info=True)
     except Exception as e:
-        logger.error(f"❌ Erro fatal na coleta: {e}", exc_info=True)
+        logger.error(f"Erro fatal na coleta: {e}", exc_info=True)
     finally:
         if driver:
             logger.info("Fechando WebDriver...")
@@ -197,14 +196,14 @@ def main():
     logger.info(f"\n{'='*60}")
     logger.info("RESUMO DA COLETA")
     logger.info("=" * 60)
-    logger.info(f"✓ Vídeos coletados com sucesso: {stats['videos_coletados']}")
-    logger.info(f"❌ Vídeos com erro: {stats['videos_com_erro']}")
-    logger.info(f"📝 Total de comentários: {stats['total_comentarios']}")
-    logger.info(f"💬 Total de respostas: {stats['total_respostas']}")
-    logger.info(f"⏱️  Tempo total: {duracao}")
+    logger.info(f"Vídeos coletados com sucesso: {stats['videos_coletados']}")
+    logger.info(f"Vídeos com erro: {stats['videos_com_erro']}")
+    logger.info(f"Total de comentários: {stats['total_comentarios']}")
+    logger.info(f"Total de respostas: {stats['total_respostas']}")
+    logger.info(f"Tempo total: {duracao}")
     if collection_folder:
-        logger.info(f"📁 Dados salvos em: {collection_folder}")
-    logger.info("✓ Coleta finalizada!")
+        logger.info(f"Dados salvos em: {collection_folder}")
+    logger.info("Coleta finalizada!")
 
 
 if __name__ == "__main__":

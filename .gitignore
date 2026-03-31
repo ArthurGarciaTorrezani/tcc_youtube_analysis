@@ -1,1 +1,14 @@
+# ambiente
 .env
+keys.txt
+documentacao.md
+
+# dados e logs gerados em runtime
+dados/
+logs/
+
+# python
+__pycache__/
+*.pyc
+.vscode/
+.idea/

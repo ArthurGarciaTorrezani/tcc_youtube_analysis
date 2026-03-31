@@ -11,7 +11,8 @@ from faster_whisper import WhisperModel
 
 logger = logging.getLogger("YoutubeCollector")
 
-BASE_DIR = r"C:\Users\Arthur\Desktop\Arthur\TCC\Codigo\tcc_youtube_analysis\dados"
+#BASE_DIR = r"C:\Users\Arthur\Desktop\Arthur\TCC\Codigo\tcc_youtube_analysis\dados"
+BASE_DIR = r"C:\Users\Arthur\Desktop\dados"
 
 # Extensões de vídeo aceitas
 VIDEO_EXTENSIONS = (".mp4", ".webm", ".mkv", ".avi", ".mov")
