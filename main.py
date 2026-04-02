@@ -25,9 +25,7 @@ from services import (
 load_dotenv()
 
 DURATION_HOURS = 1
-
 TIME_BETWEEN_VIDEOS = 3
-
 TIME_FOR_BROWSER_LOAD = 3
 
 def setup_logging(log_dir="logs"):

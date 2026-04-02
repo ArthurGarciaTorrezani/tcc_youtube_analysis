@@ -7,7 +7,7 @@ from google import genai
 from google.genai import types
 import time
 
-BASE_DIR = r"C:\Users\Arthur\Desktop\Arthur\TCC\Codigo\tcc_youtube_analysis\dados"
+BASE_DIR = "sua_rota"
 VIDEO_EXTENSIONS = (".mp4", ".webm", ".mkv", ".avi", ".mov")
 
 #load_dotenv()

@@ -10,7 +10,6 @@ from .formatters import compute_engagement, extract_video_info, structure_commen
 
 logger = logging.getLogger("YoutubeCollector")
 
-
 def save_json(video_info: Dict, comments: List[Dict], video_folder: str) -> None:
     try:
         json_data = {

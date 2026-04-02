@@ -67,9 +67,6 @@ def detectar_encoding(csv_path: Path) -> str:
     return "utf-8"
 
 def carregar_videos(pasta_raiz: str) -> Dict[str, Dict[str, List[VideoOcorrencia]]]:
-    """
-    Lê todos os CSVs e organiza os dados por pessoa e video_id.
-    """
     pasta_raiz = Path(pasta_raiz)
     videos = defaultdict(lambda: defaultdict(list))
 
@@ -137,9 +134,6 @@ def remover_duplicatas(ocorrencias: List[VideoOcorrencia]) -> List[VideoOcorrenc
     return unicas
 
 def classificar_ocorrencias(ocorrencias: List[VideoOcorrencia]) -> dict:
-    """
-    Classifica um vídeo conforme os tipos de duplicação.
-    """
     pessoas_distintas = set(oc.pessoa for oc in ocorrencias)
     coletas_distintas = set((oc.pessoa, oc.coleta) for oc in ocorrencias)
 
@@ -158,10 +152,6 @@ def classificar_ocorrencias(ocorrencias: List[VideoOcorrencia]) -> dict:
 def analisar_duplicados_videos(
     videos_por_pessoa: Dict[str, Dict[str, List[VideoOcorrencia]]]
 ) -> ResultadoAnalise:
-    """
-    Analisa os vídeos e retorna todas as categorias de duplicação.
-    """
-
     mapa_global = defaultdict(list)
 
     for pessoa, videos in videos_por_pessoa.items():
@@ -210,10 +200,6 @@ def analisar_duplicados_videos(
     )
 
 def main():
-    """
-    Executa leitura, análise e exportação dos dados.
-    """
-
     pasta = "../Analise_Coletas/Coletas"
 
     print("Lendo dados...")

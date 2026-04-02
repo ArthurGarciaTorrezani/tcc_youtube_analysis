@@ -2,9 +2,7 @@ import os
 import csv
 from pytubefix import YouTube
 
-#BASE_DIR = r"C:\Users\Arthur\Desktop\Arthur\TCC\Codigo\tcc_youtube_analysis\dados"
-
-BASE_DIR = r"C:\Users\Arthur\Desktop\Arthur\TCC\Analise_Coletas\Coletas\Coletas Maria\dados"
+BASE_DIR = "sua_rota"
 
 def download_video(url, output_path):
     yt = YouTube(url)

@@ -11,8 +11,7 @@ from faster_whisper import WhisperModel
 
 logger = logging.getLogger("YoutubeCollector")
 
-#BASE_DIR = r"C:\Users\Arthur\Desktop\Arthur\TCC\Codigo\tcc_youtube_analysis\dados"
-BASE_DIR = r"C:\Users\Arthur\Desktop\Arthur\TCC\Analise_Coletas\Coletas\Coletas Maria\dados"
+BASE_DIR = "sua_rota"
 
 # Extensões de vídeo aceitas
 VIDEO_EXTENSIONS = (".mp4", ".webm", ".mkv", ".avi", ".mov")
@@ -35,7 +34,6 @@ def get_whisper_transcription(audio_file_path: str) -> str:
 
 
 def find_video_file(video_path: str) -> str | None:
-    """Retorna o caminho do primeiro arquivo de vídeo encontrado na pasta."""
     for file in os.listdir(video_path):
         if file.lower().endswith(VIDEO_EXTENSIONS):
             return os.path.join(video_path, file)
@@ -43,11 +41,6 @@ def find_video_file(video_path: str) -> str | None:
 
 
 def transcribe_all_videos(base_path=BASE_DIR):
-    """
-    Percorre todas as pastas de vídeo dentro de 'dados',
-    encontra o arquivo de vídeo baixado, transcreve com Whisper
-    e salva o resultado em 'transcricao.txt' na própria pasta do vídeo.
-    """  
     print(f"Buscando vídeos em: {base_path}")
 
     for coleta_folder in os.listdir(base_path):
@@ -62,7 +55,6 @@ def transcribe_all_videos(base_path=BASE_DIR):
             if not os.path.isdir(video_path):
                 continue
 
-            # Pula se a transcrição já foi feita
             transcricao_path = os.path.join(video_path, "transcricao.txt")
             if os.path.exists(transcricao_path):
                 print(f"[PULANDO] Transcrição já existe em: {video_path}")
