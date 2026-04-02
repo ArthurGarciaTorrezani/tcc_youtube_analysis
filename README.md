@@ -18,7 +18,9 @@ pip install -r requirements.txt
 ```env
 API_SERVICE_NAME=youtube
 API_VERSION=v3
-API_KEY=sua_chave_api_aqui
+API_KEY_YOUTUBE=sua_chave_api_aqui
+API_KEY_GEMINI=sua_chave_api_aqui
+DOWNLOAD_OUTPUT=sua_rota_aqui 
 BASE_ROUTE=https://www.youtube.com/shorts/VIDEO_ID
 ```
 
@@ -41,6 +43,7 @@ dados/
 └── coleta_YYYYMMDD_HHMMSS/
     ├── video_1_VIDEO_ID/
     │   ├── dados.json          # JSON completo
+    │   ├── dados_raw.json      # JSON completo melhor formtatado
     │   ├── dados.txt           # Texto formatado
     │   ├── video.csv           # Informações do vídeo
     │   ├── comentarios.csv     # Comentários
@@ -58,6 +61,8 @@ dados/
 - Download do vídeo
 - Salvamento em múltiplos formatos (JSON, CSV, TXT)
 - Organização automática em pastas
+- Obtenção de descrição do vídeo
+- Comparação entre coletas
 
 ## Requisitos
 
