@@ -12,7 +12,7 @@ from faster_whisper import WhisperModel
 logger = logging.getLogger("YoutubeCollector")
 
 #BASE_DIR = r"C:\Users\Arthur\Desktop\Arthur\TCC\Codigo\tcc_youtube_analysis\dados"
-BASE_DIR = r"C:\Users\Arthur\Desktop\dados"
+BASE_DIR = r"C:\Users\Arthur\Desktop\Arthur\TCC\Analise_Coletas\Coletas\Coletas Maria\dados"
 
 # Extensões de vídeo aceitas
 VIDEO_EXTENSIONS = (".mp4", ".webm", ".mkv", ".avi", ".mov")
@@ -47,7 +47,7 @@ def transcribe_all_videos(base_path=BASE_DIR):
     Percorre todas as pastas de vídeo dentro de 'dados',
     encontra o arquivo de vídeo baixado, transcreve com Whisper
     e salva o resultado em 'transcricao.txt' na própria pasta do vídeo.
-    """
+    """  
     print(f"Buscando vídeos em: {base_path}")
 
     for coleta_folder in os.listdir(base_path):

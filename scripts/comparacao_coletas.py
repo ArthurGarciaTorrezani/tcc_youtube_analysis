@@ -4,7 +4,7 @@ from pathlib import Path
 from datetime import datetime
 from collections import defaultdict
 from dataclasses import dataclass, asdict
-
+from typing import List, Dict
 
 @dataclass
 class VideoOcorrencia:
@@ -21,7 +21,6 @@ class VideoOcorrencia:
     canal: str
     url: str
 
-
 @dataclass
 class VideoDuplicado:
     video_id: str
@@ -29,17 +28,22 @@ class VideoDuplicado:
     url: str
     canal: str
     published_at: str
-    aparece_em: list
+    aparece_em: List[VideoOcorrencia]
 
+@dataclass
+class ResultadoAnalise:
+    unicos: List[VideoDuplicado]
+    entre_pessoas: List[VideoDuplicado]
+    mesma_pessoa: List[VideoDuplicado]
+    mesma_coleta: List[VideoDuplicado]
 
-def extrair_numero_video(nome_dir):
+def extrair_numero_video(nome_dir: str) -> int:
     try:
         return int(nome_dir.split("_")[1])
     except:
         return 0
 
-
-def extrair_data_hora(nome_coleta):
+def extrair_data_hora(nome_coleta: str) -> tuple[str, str]:
     try:
         partes = nome_coleta.split("_")
         data_raw = partes[1]
@@ -52,8 +56,7 @@ def extrair_data_hora(nome_coleta):
     except:
         return "desconhecida", "desconhecida"
 
-
-def detectar_encoding(csv_path):
+def detectar_encoding(csv_path: Path) -> str:
     for enc in ["utf-8-sig", "utf-8", "latin-1"]:
         try:
             with open(csv_path, encoding=enc) as f:
@@ -63,8 +66,10 @@ def detectar_encoding(csv_path):
             continue
     return "utf-8"
 
-
-def carregar_videos(pasta_raiz):
+def carregar_videos(pasta_raiz: str) -> Dict[str, Dict[str, List[VideoOcorrencia]]]:
+    """
+    Lê todos os CSVs e organiza os dados por pessoa e video_id.
+    """
     pasta_raiz = Path(pasta_raiz)
     videos = defaultdict(lambda: defaultdict(list))
 
@@ -87,7 +92,6 @@ def carregar_videos(pasta_raiz):
 
             for video_dir in sorted(coleta_dir.iterdir(), key=lambda d: extrair_numero_video(d.name)):
                 csv_path = video_dir / "video.csv"
-
                 if not csv_path.exists():
                     continue
 
@@ -120,8 +124,7 @@ def carregar_videos(pasta_raiz):
 
     return videos
 
-
-def remover_duplicatas(ocorrencias):
+def remover_duplicatas(ocorrencias: List[VideoOcorrencia]) -> List[VideoOcorrencia]:
     seen = set()
     unicas = []
 
@@ -133,8 +136,32 @@ def remover_duplicatas(ocorrencias):
 
     return unicas
 
+def classificar_ocorrencias(ocorrencias: List[VideoOcorrencia]) -> dict:
+    """
+    Classifica um vídeo conforme os tipos de duplicação.
+    """
+    pessoas_distintas = set(oc.pessoa for oc in ocorrencias)
+    coletas_distintas = set((oc.pessoa, oc.coleta) for oc in ocorrencias)
 
-def analisar(videos_por_pessoa):
+    mesma_coleta_map = defaultdict(list)
+    for oc in ocorrencias:
+        mesma_coleta_map[(oc.pessoa, oc.coleta)].append(oc)
+
+    eh_mesma_coleta = any(len(lista) > 1 for lista in mesma_coleta_map.values())
+
+    return {
+        "entre_pessoas": len(pessoas_distintas) > 1,
+        "mesma_pessoa": len(coletas_distintas) > 1,
+        "mesma_coleta": eh_mesma_coleta
+    }
+
+def analisar_duplicados_videos(
+    videos_por_pessoa: Dict[str, Dict[str, List[VideoOcorrencia]]]
+) -> ResultadoAnalise:
+    """
+    Analisa os vídeos e retorna todas as categorias de duplicação.
+    """
+
     mapa_global = defaultdict(list)
 
     for pessoa, videos in videos_por_pessoa.items():
@@ -153,14 +180,8 @@ def analisar(videos_por_pessoa):
         ocorrencias = remover_duplicatas(ocorrencias)
         primeiro = ocorrencias[0]
 
-        pessoas_distintas = set(oc.pessoa for oc in ocorrencias)
-        coletas_distintas = set((oc.pessoa, oc.coleta) for oc in ocorrencias)
-        mesma_coleta_map = defaultdict(list)
+        classificacao = classificar_ocorrencias(ocorrencias)
 
-        for oc in ocorrencias:
-            mesma_coleta_map[(oc.pessoa, oc.coleta)].append(oc)
-
-        # lista base (únicos)
         duplicado_obj = VideoDuplicado(
             video_id=video_id,
             titulo=primeiro.titulo,
@@ -172,29 +193,27 @@ def analisar(videos_por_pessoa):
 
         duplicados_unicos.append(duplicado_obj)
 
-        # entre pessoas
-        if len(pessoas_distintas) > 1:
+        if classificacao["entre_pessoas"]:
             duplicados_entre_pessoas.append(duplicado_obj)
 
-        # mesma pessoa em coletas diferentes
-        if len(coletas_distintas) > 1:
+        if classificacao["mesma_pessoa"]:
             duplicados_mesma_pessoa.append(duplicado_obj)
 
-        # mesma coleta
-        for _, lista in mesma_coleta_map.items():
-            if len(lista) > 1:
-                duplicados_mesma_coleta.append(duplicado_obj)
-                break
+        if classificacao["mesma_coleta"]:
+            duplicados_mesma_coleta.append(duplicado_obj)
 
-    return {
-        "unicos": duplicados_unicos,
-        "entre_pessoas": duplicados_entre_pessoas,
-        "mesma_pessoa": duplicados_mesma_pessoa,
-        "mesma_coleta": duplicados_mesma_coleta
-    }
-
+    return ResultadoAnalise(
+        unicos=duplicados_unicos,
+        entre_pessoas=duplicados_entre_pessoas,
+        mesma_pessoa=duplicados_mesma_pessoa,
+        mesma_coleta=duplicados_mesma_coleta
+    )
 
 def main():
+    """
+    Executa leitura, análise e exportação dos dados.
+    """
+
     pasta = "../Analise_Coletas/Coletas"
 
     print("Lendo dados...")
@@ -211,41 +230,22 @@ def main():
     total_unicos = len(total_unicos_set)
 
     print("Analisando duplicados...")
-    resultado_analise = analisar(dados)
+    resultado = analisar_duplicados_videos(dados)
 
-    total_duplicados_unicos = len(resultado_analise['unicos'])
-    nao_duplicados = total_unicos - total_duplicados_unicos
+    total_duplicados = len(resultado.unicos)
+    nao_duplicados = total_unicos - total_duplicados
 
-    print(f"\nTotal de arquivos video.csv lidos: {total_csvs}")
-    print(f"Total de vídeos únicos: {total_unicos}")
+    print(f"\nTotal CSVs lidos: {total_csvs}")
+    print(f"Total vídeos únicos: {total_unicos}")
     print(f"Não duplicados: {nao_duplicados}")
 
-    print(f"\nDuplicados únicos: {total_duplicados_unicos}")
-    print(f"Entre pessoas: {len(resultado_analise['entre_pessoas'])}")
-    print(f"Mesma pessoa (coletas diferentes): {len(resultado_analise['mesma_pessoa'])}")
-    print(f"Mesma coleta: {len(resultado_analise['mesma_coleta'])}")
+    print(f"\nDuplicados únicos: {total_duplicados}")
+    print(f"Entre pessoas: {len(resultado.entre_pessoas)}")
+    print(f"Mesma pessoa: {len(resultado.mesma_pessoa)}")
+    print(f"Mesma coleta: {len(resultado.mesma_coleta)}")
 
-    resultado = {
-        "gerado_em": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "totais": {
-            "csvs_lidos": total_csvs,
-            "videos_unicos": total_unicos,
-            "nao_duplicados": nao_duplicados,
-            "duplicados_unicos": total_duplicados_unicos,
-            "entre_pessoas": len(resultado_analise['entre_pessoas']),
-            "mesma_pessoa": len(resultado_analise['mesma_pessoa']),
-            "mesma_coleta": len(resultado_analise['mesma_coleta'])
-        },
-        "dados": {
-            "unicos": [asdict(d) for d in resultado_analise['unicos']],
-            "entre_pessoas": [asdict(d) for d in resultado_analise['entre_pessoas']],
-            "mesma_pessoa": [asdict(d) for d in resultado_analise['mesma_pessoa']],
-            "mesma_coleta": [asdict(d) for d in resultado_analise['mesma_coleta']]
-        }
-    }
-
-    with open("../Analise_Coletas/Coletas/resultado.json", "w", encoding="utf-8") as f:
-        json.dump(resultado, f, indent=2, ensure_ascii=False)
+    with open("resultado.json", "w", encoding="utf-8") as f:
+        json.dump(asdict(resultado), f, indent=2, ensure_ascii=False)
 
     print("\nResultado salvo em resultado.json")
 

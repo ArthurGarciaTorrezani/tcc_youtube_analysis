@@ -23,7 +23,6 @@ def iso_duration_to_seconds(duration_iso: str) -> Optional[int]:
         + seconds
     )
 
-
 def detect_content_type(url: str, duration_seconds: Optional[int]) -> str:
     if url and "shorts" in url:
         return "short"
@@ -32,7 +31,6 @@ def detect_content_type(url: str, duration_seconds: Optional[int]) -> str:
         return "short"
 
     return "video"
-
 
 def flag_comment(text: str) -> List[str]:
     flags: List[str] = []
@@ -66,7 +64,6 @@ def flag_comment(text: str) -> List[str]:
 
     return flags
 
-
 def compute_engagement(video_info: Dict, comments: List[Dict]) -> Dict:
     view_count = video_info.get("view_count") or 0
     like_count = video_info.get("like_count") or 0
@@ -84,7 +81,6 @@ def compute_engagement(video_info: Dict, comments: List[Dict]) -> Dict:
         "comments_with_replies": comments_with_replies,
         "total_replies": total_replies,
     }
-
 
 def extract_comment_data(comment_obj: Dict, replies: List[Dict]) -> Optional[Dict]:
     try:
@@ -121,7 +117,6 @@ def extract_comment_data(comment_obj: Dict, replies: List[Dict]) -> Optional[Dic
         logger.error(f"Erro ao extrair dados do comentário: {exc}")
         return None
 
-
 def extract_video_info(video_data: Dict, video_details: Dict) -> Dict:
     video_info = {}
 
@@ -148,6 +143,8 @@ def extract_video_info(video_data: Dict, video_details: Dict) -> Dict:
             'description': snippet.get('description', ''),
             'published_at': snippet.get('publishedAt', ''),
             'channel_title': snippet.get('channelTitle', ''),
+            'category_id': snippet.get('categoryId', 0),
+            'tags': snippet.get('tags', []),
             'channel_id': snippet.get('channelId', ''),
             'view_count': (int(view_count) if view_count is not None else None),
             'like_count': (int(like_count) if like_count is not None else None),

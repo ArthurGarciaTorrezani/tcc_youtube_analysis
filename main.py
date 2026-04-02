@@ -26,6 +26,9 @@ load_dotenv()
 
 DURATION_HOURS = 1
 
+TIME_BETWEEN_VIDEOS = 3
+
+TIME_FOR_BROWSER_LOAD = 3
 
 def setup_logging(log_dir="logs"):
     os.makedirs(log_dir, exist_ok=True)
@@ -54,74 +57,50 @@ def setup_logging(log_dir="logs"):
 
     return logger
 
+def go_to_next_video(driver, wait):
+    url_atual = driver.current_url
 
-def collect_video_data(driver, wait, video_index, collection_folder, stats):
+    driver.find_element(By.TAG_NAME, "body").send_keys(Keys.ARROW_DOWN)
+    wait.until(lambda d: d.current_url != url_atual)
+    time.sleep(TIME_BETWEEN_VIDEOS)
+
+def collect_video_data(driver, video_index, collection_folder, stats):
     logger = logging.getLogger("YoutubeCollector")
 
     try:
-        elapsed = (datetime.now() - stats["inicio"]).total_seconds() / 60
-        logger.info(f"\n{'='*60}")
-        logger.info(f"VÍDEO {video_index + 1} | Tempo decorrido: {elapsed:.1f} min / {DURATION_HOURS * 60} min")
-        logger.info("=" * 60)
-
         url_atual = driver.current_url
         video_id = url_atual.split("/shorts/")[-1].split("?")[0]
-        logger.info(f"Video ID: {video_id}")
 
         video_folder = os.path.join(collection_folder, f"video_{video_index+1}_{video_id}")
         os.makedirs(video_folder, exist_ok=True)
 
         video_data = {"video_id": video_id, "url": url_atual}
 
-        logger.info("Buscando informações do vídeo...")
         data_video = get_data_videos(video_id)
         if "error" in data_video:
-            logger.error(f"Erro ao buscar vídeo: {data_video['error']}")
             stats["videos_com_erro"] += 1
             return False
 
         video_data["video_details"] = data_video
-        logger.info("Informações do vídeo obtidas")
 
-        logger.info("Buscando comentários e respostas...")
         data_comments = get_data_comments(video_id)
 
-        if isinstance(data_comments, dict) and "error" in data_comments:
-            logger.warning(
-                f"Não foi possível coletar comentários: "
-                f"{data_comments['error']}"
-            )
-            data_comments = []
-        elif isinstance(data_comments, list):
-            logger.info(f"✓ {len(data_comments)} comentários coletados")
-            total_replies = sum(len(c.get("replies", [])) for c in data_comments)
-            logger.info(f"✓ {total_replies} respostas coletadas")
+        if isinstance(data_comments, list):
             stats["total_comentarios"] += len(data_comments)
-            stats["total_respostas"] += total_replies
+            stats["total_respostas"] += sum(len(c.get("replies", [])) for c in data_comments)
 
         video_data["comments_data"] = data_comments
 
-        logger.info("Salvando dados coletados (sem transcrição)...")
         save_video_data(video_data, video_folder)
-        logger.info("✓ Dados salvos com sucesso")
 
         stats["videos_coletados"] += 1
 
-        logger.info("Navegando para próximo vídeo...")
-        driver.find_element(By.TAG_NAME, "body").send_keys(Keys.ARROW_DOWN)
-        wait.until(lambda d: d.current_url != url_atual)
-        time.sleep(3)
-
         return True
 
-    except (TimeoutException, NoSuchElementException) as e:
-        logger.warning(f"Não foi possível navegar para próximo vídeo: {e}")
-        return False
     except Exception as e:
         logger.error(f"Erro ao processar vídeo: {e}", exc_info=True)
         stats["videos_com_erro"] += 1
         return False
-
 
 def process_videos(driver, wait, collection_folder, stats):
     logger = logging.getLogger("YoutubeCollector")
@@ -130,22 +109,21 @@ def process_videos(driver, wait, collection_folder, stats):
     end_time = stats["inicio"].timestamp() + duration_seconds
     video_index = 0
 
-    logger.info(f"Coleta iniciada. Duração máxima: {DURATION_HOURS}h")
-    logger.info(f"Término previsto: {datetime.fromtimestamp(end_time).strftime('%H:%M:%S')}")
-
     while time.time() < end_time:
-        remaining = (end_time - time.time()) / 60
-        logger.info(f"Tempo restante: {remaining:.1f} min")
-
-        success = collect_video_data(driver, wait, video_index, collection_folder, stats)
-        video_index += 1
+        success = collect_video_data(
+            driver, video_index, collection_folder, stats
+        )
 
         if not success:
-            logger.warning(f"Erro no vídeo {video_index}. Continuando coleta...")
-            continue
+            logger.warning(f"Erro no vídeo {video_index}")
 
-    logger.info("⏱Tempo limite de 1 hora atingido. Encerrando coleta.")
+        try:
+            go_to_next_video(driver, wait)
+        except Exception as e:
+            logger.warning(f"Erro ao navegar: {e}")
+            break
 
+        video_index += 1
 
 def main():
     logger = setup_logging()
@@ -171,7 +149,7 @@ def main():
         base_route = os.getenv("BASE_ROUTE")
         driver.get(base_route)
         wait = WebDriverWait(driver, 10)
-        time.sleep(3)
+        time.sleep(TIME_FOR_BROWSER_LOAD)
 
         base_dir = "dados"
         os.makedirs(base_dir, exist_ok=True)
@@ -179,7 +157,7 @@ def main():
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         collection_folder = os.path.join(base_dir, f"coleta_{timestamp}")
         os.makedirs(collection_folder, exist_ok=True)
-        logger.info(f"📁 Pasta da coleta criada: {collection_folder}")
+        logger.info(f"Pasta da coleta criada: {collection_folder}")
 
         process_videos(driver, wait, collection_folder, stats)
 
@@ -207,9 +185,10 @@ def main():
 
 
 if __name__ == "__main__":
-    scheduler = BlockingScheduler(timezone="America/Sao_Paulo")
+    #scheduler = BlockingScheduler(timezone="America/Sao_Paulo")
 
-    scheduler.add_job(main, "cron", hour="3,9,15,21", minute=0)
+    #scheduler.add_job(main, "cron", hour="3,9,15,21", minute=0)
 
-    print("Agendador rodando... (Ctrl+C para parar)")
-    scheduler.start()
+    #print("Agendador rodando... (Ctrl+C para parar)")
+    #scheduler.start()
+    main()

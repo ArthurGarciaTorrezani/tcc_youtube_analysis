@@ -65,7 +65,6 @@ class YoutubeApi:
 
         raise Exception("Falha ao executar requisição após múltiplas tentativas")
 
-
 def get_data_videos(video_id):
     try:
         api_youtube = YoutubeApi.get_instance()
@@ -85,7 +84,6 @@ def get_data_videos(video_id):
     except Exception as e:
         logger.error(f"Erro ao buscar vídeo: {e}")
         return {"error": str(e)}
-
 
 def get_data_comments(video_id):
     try:
