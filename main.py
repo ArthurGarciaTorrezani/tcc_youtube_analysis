@@ -7,8 +7,6 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.common.exceptions import (
-    NoSuchElementException,
-    TimeoutException,
     WebDriverException,
 )
 from selenium.webdriver.common.by import By
