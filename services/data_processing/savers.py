@@ -2,6 +2,7 @@ import json
 import logging
 import os
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Dict, List
 
 import pandas as pd
@@ -79,6 +80,12 @@ def save_video_csv(video_info: Dict, video_folder: str) -> None:
         return
 
     try:
+        # pega nome da pasta de coleta
+        coleta_folder = Path(video_folder).parent.name
+
+        # adiciona no dicionario
+        video_info["coleta"] = coleta_folder
+
         df_video = pd.DataFrame([video_info])
         csv_video_file = os.path.join(video_folder, "video.csv")
         df_video.to_csv(csv_video_file, index=False, encoding='utf-8-sig')

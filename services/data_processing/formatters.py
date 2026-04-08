@@ -133,7 +133,7 @@ def extract_video_info(video_data: Dict, video_details: Dict) -> Dict:
         duration_seconds = iso_duration_to_seconds(duration_iso)
         view_count = statistics.get('viewCount')
         like_count = statistics.get('likeCount')
-        dislike_count = statistics.get('deslikeCount')
+        dislike_count = statistics.get('dislikeCount')
         favorite_count = statistics.get('favoriteCount')
         comment_count = statistics.get('commentCount')
         url = video_data.get('url', '')
@@ -150,8 +150,8 @@ def extract_video_info(video_data: Dict, video_details: Dict) -> Dict:
             'channel_id': snippet.get('channelId', ''),
             'view_count': (int(view_count) if view_count is not None else None),
             'like_count': (int(like_count) if like_count is not None else None),
-            'dislike_count': (int(dislike_count) if like_count is not None else None),
-            'favorite_count': (int(favorite_count) if like_count is not None else None),
+            'dislike_count': (int(dislike_count) if dislike_count is not None else None),
+            'favorite_count': (int(favorite_count) if favorite_count is not None else None),
             'comment_count': (int(comment_count) if comment_count is not None else None),
             'duration_iso': duration_iso,
             'duration_seconds': duration_seconds,

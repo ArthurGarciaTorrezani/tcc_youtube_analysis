@@ -8,7 +8,6 @@ def extrair_numero_video(nome_dir: str) -> int:
     except:
         return 0
 
-
 def extrair_data_hora(nome_coleta: str):
     try:
         partes = nome_coleta.split("_")
@@ -20,7 +19,6 @@ def extrair_data_hora(nome_coleta: str):
         return data, hora
     except:
         return "desconhecida", "desconhecida"
-
 
 def detectar_encoding(csv_path: Path) -> str:
     for enc in ["utf-8-sig", "utf-8", "latin-1"]:
@@ -61,8 +59,8 @@ def carregar_dataframe(pasta_raiz: str) -> pd.DataFrame:
                 encoding = detectar_encoding(csv_path)
 
                 with open(csv_path, encoding=encoding) as f:
-                    reader = pd.read_csv(f,sep=",")
-
+                    reader = csv.DictReader(f)
+                
                     for row in reader:
                         video_id = row.get("video_id", "").strip()
                         if not video_id:
@@ -98,4 +96,11 @@ def carregar_dataframe(pasta_raiz: str) -> pd.DataFrame:
     df["like_count"] = pd.to_numeric(df["like_count"], errors="coerce")
     df["comment_count"] = pd.to_numeric(df["comment_count"], errors="coerce")
 
+    return df
+
+def carregar_dados(pasta_raiz: str) -> pd.DataFrame:
+    pasta_raiz = Path(pasta_raiz)
+    df = pd.read_csv(pasta_raiz)
+    df
+    df.head()
     return df

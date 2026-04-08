@@ -5,46 +5,45 @@ from pathlib import Path
 from dataclasses import dataclass, asdict
 from typing import List, Dict
 import pandas as pd
-
+from IPython.display import display
 from carregar_dados import (
-carregar_dataframe
+carregar_dados
 )
 
 @dataclass
 class VideoOcorrencia:
     video_id: str
+    url: str
+    title: str
+    description: str
+    published_at: str
+    channel_title: str
+    channel_id: str
+    view_count: float
+    like_count: float
+    comment_count: float
+    duration_iso: str
+    duration_seconds: float
+    content_type: str
+    language: str
+    madeForKids: bool
     pessoa: str
     coleta: str
-    data_coleta: str
-    hora_coleta: str
-    numero_video: int
-    video_dir: str
-    published_at: str
-    csv_path: str
-    titulo: str
-    canal: str
-    url: str
-    like_count:float
-    comment_count:float
-
-
+    pasta_video: str
 
 @dataclass
 class VideoDuplicado:
     video_id: str
-    titulo: str
+    title: str
     url: str
-    canal: str
+    channel_title: str
     published_at: str
     aparece_em: List[VideoOcorrencia]
-
 
 @dataclass
 class ResultadoAnalise:
     unicos: List[VideoDuplicado]
     entre_pessoas: List[VideoDuplicado]
-    mesma_pessoa: List[VideoDuplicado]
-    mesma_coleta: List[VideoDuplicado]
 
 @dataclass
 class ResultadoPorPessoa:
@@ -63,8 +62,8 @@ def videos_duplicados(df: pd.DataFrame) -> ResultadoAnalise:
 
     resultado_unicos = []
     resultado_entre = []
-    resultado_mesma_pessoa = []
-    resultado_mesma_coleta = []
+
+    display(duplicados_df.groupby("video_id"))
 
     for video_id, grupo in duplicados_df.groupby("video_id"):
         ocorrencias = [
@@ -76,9 +75,9 @@ def videos_duplicados(df: pd.DataFrame) -> ResultadoAnalise:
 
         duplicado = VideoDuplicado(
             video_id=video_id,
-            titulo=primeiro.titulo,
+            title=primeiro.title,
             url=primeiro.url,
-            canal=primeiro.canal,
+            channel_title=primeiro.channel_title,
             published_at=primeiro.published_at,
             aparece_em=ocorrencias
         )
@@ -86,26 +85,13 @@ def videos_duplicados(df: pd.DataFrame) -> ResultadoAnalise:
         resultado_unicos.append(duplicado)
 
         pessoas_distintas = grupo["pessoa"].nunique()
-        coletas_distintas = grupo[["pessoa", "coleta"]].drop_duplicates().shape[0]
-
-        mesma_coleta_flag = (
-            grupo.groupby(["pessoa", "coleta"]).size() > 1
-        ).any()
 
         if pessoas_distintas > 1:
             resultado_entre.append(duplicado)
-
-        if coletas_distintas > 1:
-            resultado_mesma_pessoa.append(duplicado)
-
-        if mesma_coleta_flag:
-            resultado_mesma_coleta.append(duplicado)
     
     return ResultadoAnalise(
         unicos=resultado_unicos,
         entre_pessoas=resultado_entre,
-        mesma_pessoa=resultado_mesma_pessoa,
-        mesma_coleta=resultado_mesma_coleta
     )
 
 def medias_metadados(df: pd.DataFrame) -> list[ResultadoPorPessoa]:
@@ -137,19 +123,23 @@ def medias_metadados(df: pd.DataFrame) -> list[ResultadoPorPessoa]:
     return resultados
 
 def main():
-    pasta = "../../../../Analise_Coletas/Coletas"
     
     print("Lendo dados...")
-    df = carregar_dataframe(pasta)
-    print(df)
-    print("Analisando duplicados...")
-    resultado = videos_duplicados(df)
 
-    total_csvs = len(df)
-    total_unicos = df["video_id"].nunique()
+    arquivo = "../../../../Analise_Coletas/Coletas/todos_videos.csv"
+
+    res2 = carregar_dados(arquivo)
+    display(res2[["video_id","view_count","like_count","comment_count","madeForKids","pessoa"]])
+
+
+    print("Analisando duplicados...")
+    resultado = videos_duplicados(res2)
+
+    total_csvs = len(res2)
+    total_unicos = res2["video_id"].nunique()
     total_duplicados = len(resultado.unicos)
     nao_duplicados = total_unicos - total_duplicados
-    resultados_medios = medias_metadados(df)
+    resultados_medios = medias_metadados(res2)
 
     print(f"\nTotal linhas (CSV): {total_csvs}")
     print(f"Total vídeos únicos: {total_unicos}")
@@ -157,8 +147,6 @@ def main():
 
     print(f"\nDuplicados únicos: {total_duplicados}")
     print(f"Entre pessoas: {len(resultado.entre_pessoas)}")
-    print(f"Mesma pessoa: {len(resultado.mesma_pessoa)}")
-    print(f"Mesma coleta: {len(resultado.mesma_coleta)}")
 
     print(f"Resultados medios:",resultados_medios)
 
