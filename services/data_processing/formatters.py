@@ -4,6 +4,39 @@ from typing import Dict, List, Optional
 
 logger = logging.getLogger("YoutubeCollector")
 
+YOUTUBE_CATEGORIES = {
+    "1": "Filmes e desenhos",
+    "2": "Automóveis",
+    "10": "Música",
+    "15": "Animais",
+    "17": "Esportes",
+    "18": "Curtas",
+    "19": "Viagens e eventos",
+    "20": "Jogos",
+    "21": "Videoblog",
+    "22": "Pessoas e blogs",
+    "23": "Comédia",
+    "24": "Entretenimento",
+    "25": "Notícias e política",
+    "26": "Tutoriais e estilo",
+    "27": "Educação",
+    "28": "Ciência e tecnologia",
+    "30": "Filmes",
+    "31": "Desenho/animação",
+    "32": "Ação/aventura",
+    "33": "Clássicos",
+    "34": "Comédia",
+    "35": "Documentário",
+    "36": "Drama",
+    "37": "Família",
+    "38": "Estrangeiro",
+    "39": "Terror",
+    "40": "Ficção científica/fantasia",
+    "41": "Suspense",
+    "42": "Curtas",
+    "43": "Séries",
+    "44": "Trailers",
+}
 
 def iso_duration_to_seconds(duration_iso: str) -> Optional[int]:
     if not duration_iso:
@@ -27,7 +60,7 @@ def detect_content_type(url: str, duration_seconds: Optional[int]) -> str:
     if url and "shorts" in url:
         return "short"
 
-    if duration_seconds is not None and duration_seconds <= 60:
+    if duration_seconds is not None and duration_seconds <= 180:
         return "short"
 
     return "video"
@@ -118,52 +151,51 @@ def extract_comment_data(comment_obj: Dict, replies: List[Dict]) -> Optional[Dic
         return None
 
 def extract_video_info(video_data: Dict, video_details: Dict) -> Dict:
-    video_info = {}
-
-    if 'items' not in video_details or len(video_details['items']) == 0:
-        return video_info
+    items = video_details.get('items')
+    if not items:
+        return {}
 
     try:
-        item = video_details['items'][0]
-        snippet = item.get('snippet', {})
-        statistics = item.get('statistics', {})
-        content_details = item.get('contentDetails', {})
-        status = item.get('status', {})
-        duration_iso = content_details.get('duration', '')
+        item = items[0]
+        snippet          = item.get('snippet', {})
+        statistics       = item.get('statistics', {})
+        content_details  = item.get('contentDetails', {})
+        status           = item.get('status', {})
+
+        duration_iso     = content_details.get('duration', '')
         duration_seconds = iso_duration_to_seconds(duration_iso)
-        view_count = statistics.get('viewCount')
-        like_count = statistics.get('likeCount')
-        dislike_count = statistics.get('dislikeCount')
-        favorite_count = statistics.get('favoriteCount')
-        comment_count = statistics.get('commentCount')
-        url = video_data.get('url', '')
+        url              = video_data.get('url', '')
+        category_id      = snippet.get('categoryId', '')
 
-        video_info = {
-            'video_id': video_data.get('video_id'),
-            'url': url,
-            'title': snippet.get('title', ''),
-            'description': snippet.get('description', ''),
-            'published_at': snippet.get('publishedAt', ''),
-            'channel_title': snippet.get('channelTitle', ''),
-            'category_id': snippet.get('categoryId', 0),
-            'tags': snippet.get('tags', []),
-            'channel_id': snippet.get('channelId', ''),
-            'view_count': (int(view_count) if view_count is not None else None),
-            'like_count': (int(like_count) if like_count is not None else None),
-            'dislike_count': (int(dislike_count) if dislike_count is not None else None),
-            'favorite_count': (int(favorite_count) if favorite_count is not None else None),
-            'comment_count': (int(comment_count) if comment_count is not None else None),
-            'duration_iso': duration_iso,
-            'duration_seconds': duration_seconds,
-            'content_type': detect_content_type(url, duration_seconds),
-            'language': snippet.get('defaultAudioLanguage', 'unknown'),
-            'madeForKids': status.get('madeForKids')
+        def to_int(value) -> Optional[int]:
+            return int(value) if value is not None else None
+
+        return {
+            'video_id':        video_data.get('video_id'),
+            'url':             url,
+            'title':           snippet.get('title', ''),
+            'description':     snippet.get('description', ''),
+            'published_at':    snippet.get('publishedAt', ''),
+            'channel_id':      snippet.get('channelId', ''),
+            'channel_title':   snippet.get('channelTitle', ''),
+            'category_id':     category_id,
+            'category_name':   YOUTUBE_CATEGORIES.get(category_id, 'Desconhecida'),
+            'tags':            snippet.get('tags', []),
+            'view_count':      to_int(statistics.get('viewCount')),
+            'like_count':      to_int(statistics.get('likeCount')),
+            'dislike_count':   to_int(statistics.get('dislikeCount')),
+            'favorite_count':  to_int(statistics.get('favoriteCount')),
+            'comment_count':   to_int(statistics.get('commentCount')),
+            'duration_iso':    duration_iso,
+            'duration_seconds':duration_seconds,
+            'content_type':    detect_content_type(url, duration_seconds),
+            'language':        snippet.get('defaultAudioLanguage', 'unknown'),
+            'made_for_kids':   status.get('madeForKids'),
         }
+
     except Exception as e:
-        logger.error(f"Erro ao extrair dados do vídeo: {e}")
-
-    return video_info
-
+        logger.error(f"Erro ao extrair dados do vídeo {video_data.get('video_id')}: {e}")
+        return {}
 
 def structure_comments(comments_data: List[Dict]) -> List[Dict]:
     comments_estruturados = []

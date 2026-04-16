@@ -4,5 +4,5 @@ google-api-python-client==2.190.0
 google-genai==1.64.0
 pandas==3.0.1
 python-dotenv==1.2.1
-pytubefix==10.3.6
+pytubefix==6
 selenium==4.41.0

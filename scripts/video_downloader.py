@@ -13,11 +13,6 @@ def download_video(url, output_path):
 
 
 def download_all_videos(base_path=BASE_DIR):
-    """
-    Percorre todas as pastas de coleta dentro de 'dados',
-    encontra cada pasta de vídeo (video_X_...), lê o video.csv
-    e faz o download do vídeo na própria pasta do vídeo.
-    """
 
     print(f"Buscando vídeos em: {base_path}")
 

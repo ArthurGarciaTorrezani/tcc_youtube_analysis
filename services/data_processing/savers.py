@@ -80,15 +80,24 @@ def save_video_csv(video_info: Dict, video_folder: str) -> None:
         return
 
     try:
-        # pega nome da pasta de coleta
         coleta_folder = Path(video_folder).parent.name
 
-        # adiciona no dicionario
         video_info["coleta"] = coleta_folder
-
+        video_info["coleta_dia"] = pd.to_datetime(coleta_folder[7:15], format="%Y%m%d")
         df_video = pd.DataFrame([video_info])
         csv_video_file = os.path.join(video_folder, "video.csv")
         df_video.to_csv(csv_video_file, index=False, encoding='utf-8-sig')
+
+        dados_folder = Path(video_folder).parent.parent
+        todos_csv_file = dados_folder / "todos_videos.csv"
+        file_exists = todos_csv_file.exists()
+        df_video.to_csv(
+            todos_csv_file,
+            mode="a",
+            index=False,
+            encoding="utf-8-sig",
+            header=not file_exists,
+        )
     except Exception as e:
         logger.error(f"Erro ao salvar CSV de vídeo: {e}")
 
@@ -169,7 +178,7 @@ def save_video_data(video_data: Dict, video_folder: str) -> None:
         comments = structure_comments(comments_data)
 
         if not video_info and not comments:
-            logger.warning(f"⚠ Nenhum dado coletado para {video_folder}")
+            logger.warning(f" Nenhum dado coletado para {video_folder}")
 
         save_json(video_info, comments, video_folder)
         save_txt(video_info, comments, video_folder)
