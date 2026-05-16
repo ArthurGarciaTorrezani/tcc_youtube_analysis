@@ -181,6 +181,7 @@ def extract_video_info(video_data: Dict, video_details: Dict) -> Dict:
             'category_id':     category_id,
             'category_name':   YOUTUBE_CATEGORIES.get(category_id, 'Desconhecida'),
             'tags':            snippet.get('tags', []),
+            
             'view_count':      to_int(statistics.get('viewCount')),
             'like_count':      to_int(statistics.get('likeCount')),
             'dislike_count':   to_int(statistics.get('dislikeCount')),

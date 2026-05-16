@@ -122,7 +122,7 @@ def print_analises(dados_gerais, resultado_duplicados, medias):
 
 def main():
     print("Lendo dados...")
-    arquivo = "../../../../Analise_Coletas/Coletas/todos_videos.csv"
+    arquivo = "../../../../Analise_Coletas/Coletas/todos_videos_p.csv"
     df = carregar_dados(arquivo)
     display(df[["video_id", "view_count", "like_count", "comment_count", "madeForKids", "pessoa"]])
 

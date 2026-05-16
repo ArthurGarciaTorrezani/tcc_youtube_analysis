@@ -127,8 +127,10 @@ def analise_por_coleta(dados: pd.DataFrame):
 
 
 def analise_made_for_kids(dados: pd.DataFrame):
+    dados = dados.drop_duplicates(subset=['video_id', 'pessoa'])
+
     resultado = (
-        dados[dados["pessoa"].isin(["Maria", "Carlos"])]
+        dados
         .groupby(["pessoa", "made_for_kids"])["video_id"]
         .nunique()
         .unstack(fill_value=0)
@@ -146,9 +148,10 @@ def analise_made_for_kids(dados: pd.DataFrame):
 
 
 def analise_tempo_por_video(dados: pd.DataFrame):
+    dados = dados.drop_duplicates(subset=['video_id', 'pessoa'])
 
     resultado = (
-        dados[dados["pessoa"].isin(["Maria","Carlos"])]
+        dados
         .groupby("pessoa")["duration_seconds"]
         .agg(
             media="mean",
@@ -176,7 +179,10 @@ def analise_tempo_por_video(dados: pd.DataFrame):
 
 
 def analise_tipo_conteudo(dados: pd.DataFrame):
-    res = dados[dados["pessoa"].isin(["Maria","Carlos"])].groupby('pessoa')['category_name'].value_counts().reset_index(name='quantidade')
+
+    dados = dados.drop_duplicates(subset=['video_id', 'pessoa'])
+
+    res = dados.groupby('pessoa')['category_name'].value_counts().reset_index(name='quantidade')
     print(res)
 
     pessoas = res['pessoa'].unique()
@@ -215,7 +221,29 @@ def analise_media_comentarios(dados: pd.DataFrame):
     analise_metrica_temporal(dados, "comment_count", "Média de comentários ao longo do tempo", "Comentários (média)")
 
 
+def analise_linguas(dados: pd.DataFrame):
+
+    dados = dados.drop_duplicates(subset=['video_id', 'pessoa'])
+
+    res = dados.groupby(['pessoa','language'])['language'].value_counts().reset_index(name='quantidade')
+    print(res)
+
+    pessoas = res['pessoa'].unique()
+    fig, axes = plt.subplots(1, len(pessoas), figsize=(12, 5), sharey=True)
+    
+    for ax, pessoa in zip(axes, pessoas):
+        dados_pessoa = res[res['pessoa'] == pessoa]
+        ax.bar(dados_pessoa['language'], dados_pessoa['quantidade'])
+        ax.set_title(pessoa)
+        ax.set_xlabel('Categoria')
+        ax.tick_params(axis='x', rotation=45)
+
+    axes[0].set_ylabel('Quantidade')
+    plt.show()
+
+
 def nuvem_palavras(dados: pd.DataFrame):
+    dados = dados.drop_duplicates(subset=['video_id', 'pessoa'])
 
     stopwords = set(STOPWORDS)    
     stopwords.update([
@@ -274,25 +302,26 @@ def main():
     print("Lendo dados...")
     
     arquivo = "../../dados/videos_mock_50.csv"
-    arq = "../../../../Analise_Coletas/Coletas/todos_videos.csv"
+    arq = "../../../../Analise_Coletas/Coletas/todos_videos_p2.csv"
 
     df = carregar_dados(arq)
 
     df["coleta_dia"] = pd.to_datetime(df["coleta"].str[7:15], format="%Y%m%d")
     df.columns = df.columns.str.replace("madeForKids", "made_for_kids")
     
-    print(df["coleta_dia"])    
+    #print(df["coleta_dia"])    
 
     analise_por_coleta(df)
     analise_por_dia(df)
     analise_made_for_kids(df)
     analise_tempo_por_video(df)
-    analise_tipo_conteudo(df)
+    #analise_tipo_conteudo(df)
     analise_canais_exibidos(df)
     analise_media_views(df)
     analise_media_likes(df)
     analise_media_comentarios(df)
     nuvem_palavras(df)
+    analise_linguas(df)
     
 if __name__ == "__main__":
     main()
