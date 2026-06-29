@@ -183,7 +183,7 @@ def main():
 if __name__ == "__main__":
     scheduler = BlockingScheduler(timezone="America/Sao_Paulo")
 
-    scheduler.add_job(main, "cron", hour="14,15,16,17", minute=0)
+    scheduler.add_job(main, "cron", hour="00,6,12,18", minute=0)
 
     print("Agendador rodando... (Ctrl+C para parar)")
     scheduler.start()

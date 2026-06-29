@@ -18,7 +18,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger("YoutubeCollector")
 
-client = genai.Client(api_key="AIzaSyAht-6ksUp6oy67MjHFOb4t9adBQCw502w")
+client = genai.Client(api_key="API_KEY_GEMINI")
 
 PROMPT = """
 Analise o vídeo fornecido e gere um relatório detalhado contendo:
