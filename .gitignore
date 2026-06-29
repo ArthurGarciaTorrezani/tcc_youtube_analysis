@@ -13,4 +13,4 @@ __pycache__/
 .vscode/
 .idea/
 .conda/
-./analises/analise2
+./scripts/analises/analise2
