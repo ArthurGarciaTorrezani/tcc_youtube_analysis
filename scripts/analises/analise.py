@@ -35,8 +35,9 @@ def total_videos_coletados(df):
         .reset_index(name="quantidade")
     )
 
-    print("\n=== TOTAL DE RECOMENDAÇÕES COLETADAS ===")
+    print("\n=== Total number of videos collected ===")
     print(f"Total geral: {total_geral}")
+
     print(total_por_pessoa)
 
     return total_por_pessoa
@@ -46,6 +47,8 @@ def grafico_total_videos(df):
 
     resultado = total_videos_coletados(df)
 
+    resultado["pessoa"] = resultado["pessoa"]
+
     fig, ax = plt.subplots(figsize=(6, 4))
 
     bars = ax.bar(
@@ -53,7 +56,7 @@ def grafico_total_videos(df):
         resultado["quantidade"]
     )
 
-    ax.set_title("Total de recomendações coletadas")
+    ax.set_title("Total de vídeos coletados")
     ax.set_ylabel("Quantidade")
 
     adicionar_rotulos(ax, bars)
@@ -152,6 +155,7 @@ def grafico_videos_compartilhados(df):
         df.groupby("pessoa")["video_id"]
         .apply(set)
     )
+    
 
     p0, p1 = videos_por_pessoa.index
     s0, s1 = videos_por_pessoa.iloc[0], videos_por_pessoa.iloc[1]
@@ -161,9 +165,9 @@ def grafico_videos_compartilhados(df):
     exclusivos_p1 = len(s1 - s0)
 
     labels = [
-        f"Somente\n{p0}",
-        "Compartilhados",
-        f"Somente\n{p1}"
+        f"Only\n{'Menina'}",
+        "Shared",
+        f"Only\n{'Menino'}"
     ]
 
     valores = [

@@ -13,6 +13,7 @@ from nltk.corpus import stopwords as nltk_stopwords
 
 
 
+
 def contar_palavras(texto, stopwords, top_n=20):
     palavras = re.findall(r'\b\w+\b', texto.lower())
 
@@ -196,9 +197,9 @@ def analise_intersecao(
     # LABELS DO EIXO X
     # ==========================================
     if coluna_grupo in ("coleta", "coleta_hora"):
-        resultado["label"] = [f"Coleta {i+1}" for i in range(len(resultado))]
+        resultado["label"] = [f"Collect {i+1}" for i in range(len(resultado))]
     else:
-        resultado["label"] = [f"Dia {i+1}" for i in range(len(resultado))]
+        resultado["label"] = [f"Day {i+1}" for i in range(len(resultado))]
 
     # ==========================================
     # GRÁFICO
@@ -208,9 +209,9 @@ def analise_intersecao(
     x = range(len(resultado))
 
     series = [
-        ("em_comum", "Em comum", "green"),
-        ("so_Menino", "Só no Menino", "blue"),
-        ("so_Menina", "Só na Menina", "orange"),
+    ("em_comum", "Common", "green"),
+    ("so_Menino", "Apenas menino", "blue"),
+    ("so_Menina", "Apenas menina", "orange"),
     ]
 
     # ==========================================
@@ -372,6 +373,7 @@ def analise_made_for_kids(dados: pd.DataFrame):
     dados = dados.drop_duplicates(
         subset=['video_id', 'pessoa']
     )
+    
 
     resultado = (
         dados
@@ -380,17 +382,27 @@ def analise_made_for_kids(dados: pd.DataFrame):
         .unstack(fill_value=0)
     )
 
+    resultado = resultado.rename(
+    columns={
+        False: "Não destinado a crianças",
+        True: "Destinado a crianças"
+    }
+)
+
     print(resultado)
 
     resultado.plot(kind="bar")
 
-    plt.title("Vídeos para crianças vs não para crianças")
-    plt.xlabel("Pessoa")
-    plt.ylabel("Quantidade de vídeos")
+    plt.title("Videos Not Made for Kids and Videos Made for Kids")
+    plt.xlabel("Profile")
+    plt.ylabel("Number of Videos")
 
-    plt.legend(
-        [str(col) for col in resultado.columns]
-    )
+    plt.xticks([0, 1], ["Girl", "Boy"])
+
+    plt.legend([
+        "Not Made for Kids",
+        "Made for Kids"
+    ])
 
     plt.xticks(rotation=0)
 
@@ -519,6 +531,29 @@ def analise_tempo_por_video(dados: pd.DataFrame):
     plt.show()
 
 
+traducao_pessoas = {
+    "Menina": "Girl",
+    "Menino": "Boy"
+}
+
+traducao_categorias = {
+    "Pessoas e blogs": "People & Blogs",
+    "Entretenimento": "Entertainment",
+    "Comédia": "Comedy",
+    "Jogos": "Gaming",
+    "Animais": "Pets & Animals",
+    "Música": "Music",
+    "Educação": "Education",
+    "Notícias e política": "News & Politics",
+    "Tutoriais e estilo": "How-to & Style",
+    "Esportes": "Sports",
+    "Ciência e tecnologia": "Science & Technology",
+    "Viagens e eventos": "Travel & Events",
+    "Filmes e desenhos": "Film & Animation",
+    "Automóveis": "Autos & Vehicles",
+    "Desconhecida": "Unknown"
+}
+
 def analise_tipo_conteudo(dados: pd.DataFrame):
 
     dados = dados.drop_duplicates(subset=['video_id', 'pessoa'])
@@ -527,15 +562,21 @@ def analise_tipo_conteudo(dados: pd.DataFrame):
         dados
         .groupby('pessoa')['category_name']
         .value_counts()
-        .reset_index(name='quantidade')
+        .reset_index(name='quantity')
     )
+
+    # Traduz perfis
+    res['pessoa'] = res['pessoa'].replace(traducao_pessoas)
+
+    # Traduz categorias
+    res['category_name'] = res['category_name'].replace(traducao_categorias)
 
     pessoas = res['pessoa'].unique()
 
     fig, axes = plt.subplots(
         1,
         len(pessoas),
-        figsize=(18, 6),   # mais largo
+        figsize=(24, 8),
         sharey=True
     )
 
@@ -546,25 +587,25 @@ def analise_tipo_conteudo(dados: pd.DataFrame):
 
         ax.bar(
             x,
-            dados_pessoa['quantidade'],
-            width=0.6          # barras mais finas = mais espaço entre elas
+            dados_pessoa['quantity'],
+            width=0.6
         )
 
-        ax.set_title(pessoa)
-        ax.set_xlabel('Categoria')
+        ax.set_title(pessoa, fontsize=16)
+        ax.set_xlabel('Category')
+
         ax.set_xticks(x)
         ax.set_xticklabels(
             dados_pessoa['category_name'],
-            rotation=90,       # vertical elimina sobreposição
+            rotation=90,
             ha='center',
             fontsize=25
         )
 
-    axes[0].set_ylabel('Quantidade')
+    axes[0].set_ylabel('Number of Videos')
 
-    plt.tight_layout()         # evita cortar labels
+    plt.tight_layout()
     plt.show()
-
 
 def analise_canais_exibidos(dados: pd.DataFrame):
 
